@@ -6,7 +6,7 @@
   <title>DTU Times — Edition Portal</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Inter font -->
+  <!-- Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,80 +18,80 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
           }
         }
       }
     }
   </script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
 
   <!-- ============================================== -->
-  <!-- CLEAN & SIMPLE TOP NAVIGATION                  -->
+  <!-- CRISP LIGHT HEADER                             -->
   <!-- ============================================== -->
-  <header class="bg-slate-900 border-b border-slate-800 px-6 h-14 flex items-center justify-between sticky top-0 z-30">
+  <header class="bg-white border-b border-slate-200 px-6 h-14 flex items-center justify-between sticky top-0 z-30 shadow-sm">
     <!-- Brand & Edition -->
     <div class="flex items-center space-x-3">
-      <div class="w-8 h-8 rounded-md bg-rose-600 flex items-center justify-center font-bold text-white text-sm">
+      <div class="w-8 h-8 rounded-lg bg-rose-700 flex items-center justify-center font-bold text-white text-sm shadow-sm">
         DT
       </div>
       <div>
-        <div class="font-bold text-sm text-white tracking-wide">DTU TIMES</div>
-        <div class="text-[11px] text-slate-400">Edition 74 • Winter 2026</div>
+        <div class="font-bold text-sm text-slate-900 tracking-wide">DTU TIMES</div>
+        <div class="text-[11px] text-slate-500 font-medium">Edition 74 • Winter 2026</div>
       </div>
     </div>
 
-    <!-- Simple 3 Main Tabs (Center) -->
-    <nav class="flex items-center space-x-1 bg-slate-950/60 p-1 rounded-lg border border-slate-800">
-      <button onclick="switchTab('articles')" id="tab-btn-articles" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold bg-rose-600 text-white transition">
+    <!-- Centered Clean 3 Tabs -->
+    <nav class="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+      <button onclick="switchTab('articles')" id="tab-btn-articles" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold bg-rose-700 text-white shadow-sm transition">
         Articles
       </button>
-      <button onclick="switchTab('submit')" id="tab-btn-submit" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+      <button onclick="switchTab('submit')" id="tab-btn-submit" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold text-slate-600 hover:text-slate-900 transition">
         Submit Article
       </button>
-      <button onclick="switchTab('team')" id="tab-btn-team" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+      <button onclick="switchTab('team')" id="tab-btn-team" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold text-slate-600 hover:text-slate-900 transition">
         Team Activity
       </button>
     </nav>
 
-    <!-- Role Switcher & Drive Link -->
-    <div class="flex items-center space-x-3 text-xs">
-      <a href="https://drive.google.com" target="_blank" class="hidden sm:flex items-center space-x-1.5 text-slate-400 hover:text-slate-200 bg-slate-800/80 px-2.5 py-1.5 rounded-md border border-slate-700">
-        <i data-lucide="folder" class="w-3.5 h-3.5 text-amber-400"></i>
-        <span>Google Drive</span>
+    <!-- Quick Links & Role Selector -->
+    <div class="flex items-center space-x-2.5 text-xs">
+      <a href="https://drive.google.com" target="_blank" class="hidden sm:flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-50 px-2.5 py-1.5 rounded-md border border-slate-200 shadow-sm transition">
+        <i data-lucide="folder" class="w-3.5 h-3.5 text-amber-500"></i>
+        <span class="font-medium">Google Drive</span>
       </a>
 
-      <div class="flex items-center space-x-1.5 bg-slate-800/80 px-2.5 py-1.5 rounded-md border border-slate-700">
-        <span class="text-slate-400 text-[11px]">Role:</span>
-        <select id="roleSelect" onchange="changeRole(this.value)" class="bg-transparent text-white font-medium focus:outline-none cursor-pointer text-xs">
-          <option value="lead" class="bg-slate-900">Arjun (Senior / Editor)</option>
-          <option value="member" class="bg-slate-900">Rohan (Writer / Member)</option>
+      <div class="flex items-center space-x-1.5 bg-white px-2.5 py-1.5 rounded-md border border-slate-200 shadow-sm">
+        <span class="text-slate-500 text-[11px]">Role:</span>
+        <select id="roleSelect" onchange="changeRole(this.value)" class="bg-transparent text-slate-800 font-medium focus:outline-none cursor-pointer text-xs">
+          <option value="lead">Arjun (Senior / Editor)</option>
+          <option value="member">Rohan (Writer / Member)</option>
         </select>
       </div>
     </div>
   </header>
 
   <!-- ============================================== -->
-  <!-- MAIN CONTENT CONTAINER                         -->
+  <!-- MAIN WORKSPACE                                 -->
   <!-- ============================================== -->
-  <main class="flex-1 max-w-5xl w-full mx-auto p-6">
+  <main class="flex-1 max-w-5xl w-full mx-auto p-6 space-y-6">
 
     <!-- ============================================== -->
-    <!-- TAB 1: ARTICLES LIST                           -->
+    <!-- TAB 1: ARTICLES LIST (LIGHT & CLEAR)           -->
     <!-- ============================================== -->
     <div id="tab-articles" class="tab-content space-y-4">
       
-      <!-- Filter bar -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+      <!-- Filter Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200">
         <div>
-          <h1 class="text-lg font-bold text-white">Edition 74 Articles</h1>
-          <p class="text-xs text-slate-400">Track and review content for the upcoming magazine.</p>
+          <h1 class="text-lg font-bold text-slate-900">Edition 74 Articles</h1>
+          <p class="text-xs text-slate-500">Review, update, and manage all articles being written for this edition.</p>
         </div>
 
         <div class="flex items-center space-x-2">
-          <!-- Status Filter -->
-          <select id="statusFilter" onchange="renderArticles()" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-md px-3 py-1.5 focus:outline-none">
+          <!-- Filter Dropdown -->
+          <select id="statusFilter" onchange="renderArticles()" class="bg-white border border-slate-200 text-xs text-slate-700 font-medium rounded-md px-3 py-1.5 focus:outline-none shadow-sm cursor-pointer">
             <option value="all">All Stages</option>
             <option value="Drafting">In Drafting</option>
             <option value="Review">Needs Review</option>
@@ -99,7 +99,8 @@
             <option value="Ready">Ready for Print</option>
           </select>
 
-          <button onclick="switchTab('submit')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 py-1.5 rounded-md flex items-center space-x-1 transition shadow-sm">
+          <!-- Add Button -->
+          <button onclick="switchTab('submit')" class="bg-rose-700 hover:bg-rose-800 text-white text-xs font-semibold px-3.5 py-1.5 rounded-md flex items-center space-x-1.5 transition shadow-sm">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i>
             <span>Add Article</span>
           </button>
@@ -107,30 +108,30 @@
       </div>
 
       <!-- Articles Grid -->
-      <div id="articlesList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div id="articlesList" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         <!-- Rendered by JS -->
       </div>
     </div>
 
     <!-- ============================================== -->
-    <!-- TAB 2: SUBMIT ARTICLE FORM                     -->
+    <!-- TAB 2: SUBMIT ARTICLE FORM (LIGHT & CLEAN)     -->
     <!-- ============================================== -->
     <div id="tab-submit" class="tab-content hidden max-w-2xl mx-auto space-y-4">
-      <div class="pb-2 border-b border-slate-800">
-        <h1 class="text-lg font-bold text-white">Submit New Article or Media</h1>
-        <p class="text-xs text-slate-400">Team members can write copy or link Google Docs and Drive files here.</p>
+      <div class="pb-2 border-b border-slate-200">
+        <h1 class="text-lg font-bold text-slate-900">Submit New Article or Media</h1>
+        <p class="text-xs text-slate-500">Write your article draft below or paste your Google Doc / Drive links.</p>
       </div>
 
-      <form onsubmit="handleArticleSubmit(event)" class="space-y-4 bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+      <form onsubmit="handleArticleSubmit(event)" class="space-y-4 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Article Title</label>
-          <input id="inputTitle" type="text" required placeholder="e.g. Orientation Ceremony at Raj Soin Hall" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500">
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Article Title</label>
+          <input id="inputTitle" type="text" required placeholder="e.g. Orientation Ceremony at Raj Soin Hall" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition">
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Magazine Section</label>
-            <select id="inputSection" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Magazine Section</label>
+            <select id="inputSection" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-rose-600 focus:bg-white transition">
               <option value="Campus News">Campus & University News</option>
               <option value="Student Achievements">Student Accolades & Tech Teams</option>
               <option value="Faculty Accolades">Faculty News & Research</option>
@@ -143,61 +144,61 @@
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Contributor Name</label>
-            <input id="inputAuthor" type="text" required placeholder="e.g. Rohan Das" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Contributor Name</label>
+            <input id="inputAuthor" type="text" required placeholder="e.g. Rohan Das" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Article Content (or paste draft)</label>
-          <textarea id="inputText" rows="6" placeholder="Type or paste the draft here..." class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 leading-relaxed"></textarea>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Article Content (or paste draft)</label>
+          <textarea id="inputText" rows="6" placeholder="Write or paste your draft here..." class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition leading-relaxed"></textarea>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Google Drive or Doc Link (Optional)</label>
-          <input id="inputDriveLink" type="url" placeholder="https://docs.google.com/document/d/..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500">
-          <p class="text-[11px] text-slate-500 mt-1">If photos or illustrations are attached, add the Drive folder link here.</p>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Google Drive or Doc Link (Optional)</label>
+          <input id="inputDriveLink" type="url" placeholder="https://docs.google.com/document/d/..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition">
+          <p class="text-[11px] text-slate-500 mt-1">If photos or illustrations are attached, paste the Google Drive folder link.</p>
         </div>
 
-        <div class="pt-2 flex items-center justify-end space-x-2">
-          <button type="button" onclick="switchTab('articles')" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Cancel</button>
-          <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-5 py-2 rounded-lg transition shadow-sm">Submit to Editors</button>
+        <div class="pt-2 flex items-center justify-end space-x-2 border-t border-slate-100">
+          <button type="button" onclick="switchTab('articles')" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition">Cancel</button>
+          <button type="submit" class="bg-rose-700 hover:bg-rose-800 text-white text-xs font-semibold px-5 py-2 rounded-lg transition shadow-sm">Submit to Editors</button>
         </div>
       </form>
     </div>
 
     <!-- ============================================== -->
-    <!-- TAB 3: TEAM ACTIVITY TRACKER (Clean & Friendly)-->
+    <!-- TAB 3: TEAM ACTIVITY TRACKER (LIGHT & CLEAR)   -->
     <!-- ============================================== -->
     <div id="tab-team" class="tab-content hidden space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200">
         <div>
-          <h1 class="text-lg font-bold text-white">Team Activity & Contributions</h1>
-          <p class="text-xs text-slate-400">See who has contributed to this edition so seniors can easily review performance.</p>
+          <h1 class="text-lg font-bold text-slate-900">Team Activity & Contributions</h1>
+          <p class="text-xs text-slate-500">Track member contributions for this edition to make year-end reviews easy.</p>
         </div>
 
-        <!-- Department Filter -->
+        <!-- Filter Buttons -->
         <div class="flex items-center space-x-1 text-xs">
-          <button onclick="filterTeam('all')" class="team-filter-btn px-3 py-1 rounded bg-slate-800 text-white font-medium">All</button>
-          <button onclick="filterTeam('Content')" class="team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white">Content</button>
-          <button onclick="filterTeam('Design')" class="team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white">Design & Art</button>
-          <button onclick="filterTeam('Tech')" class="team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white">Web / Tech</button>
+          <button onclick="filterTeam('all')" class="team-filter-btn px-3 py-1 rounded bg-slate-900 text-white font-medium">All</button>
+          <button onclick="filterTeam('Content')" class="team-filter-btn px-3 py-1 rounded text-slate-600 hover:bg-slate-200">Content</button>
+          <button onclick="filterTeam('Design')" class="team-filter-btn px-3 py-1 rounded text-slate-600 hover:bg-slate-200">Design & Art</button>
+          <button onclick="filterTeam('Tech')" class="team-filter-btn px-3 py-1 rounded text-slate-600 hover:bg-slate-200">Web / Tech</button>
         </div>
       </div>
 
-      <!-- Simple, Readable Table -->
-      <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+      <!-- Clean White Table -->
+      <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
         <table class="w-full text-left text-xs">
-          <thead class="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
+          <thead class="bg-slate-50 text-slate-600 uppercase text-[10px] font-semibold border-b border-slate-200">
             <tr>
               <th class="py-3 px-4">Member Name</th>
               <th class="py-3 px-3">Vertical</th>
-              <th class="py-3 px-3 text-center">Articles / Tasks</th>
+              <th class="py-3 px-3 text-center">Tasks Completed</th>
               <th class="py-3 px-3 text-center">Status</th>
               <th class="py-3 px-4 text-right">Activity Level</th>
             </tr>
           </thead>
-          <tbody id="teamTableBody" class="divide-y divide-slate-800/60 text-slate-200">
+          <tbody id="teamTableBody" class="divide-y divide-slate-100 text-slate-700">
             <!-- Rendered by JS -->
           </tbody>
         </table>
@@ -207,31 +208,31 @@
   </main>
 
   <!-- ============================================== -->
-  <!-- MODAL: ARTICLE DETAILS & REVIEW                -->
+  <!-- MODAL: ARTICLE REVIEW POPUP (LIGHT & CRISP)    -->
   <!-- ============================================== -->
-  <div id="viewArticleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-xl shadow-2xl p-5 space-y-4">
+  <div id="viewArticleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+    <div class="bg-white border border-slate-200 w-full max-w-lg rounded-xl shadow-2xl p-5 space-y-4">
       <div class="flex items-start justify-between">
         <div>
-          <span id="modalArticleSection" class="text-[10px] font-semibold text-rose-400 uppercase tracking-wider">Campus News</span>
-          <h2 id="modalArticleTitle" class="text-base font-bold text-white mt-0.5 leading-snug">Article Title</h2>
-          <p id="modalArticleAuthor" class="text-xs text-slate-400 mt-0.5">By Author</p>
+          <span id="modalArticleSection" class="text-[10px] font-semibold text-rose-700 uppercase tracking-wider">Campus News</span>
+          <h2 id="modalArticleTitle" class="text-base font-bold text-slate-900 mt-0.5 leading-snug">Article Title</h2>
+          <p id="modalArticleAuthor" class="text-xs text-slate-500 mt-0.5">By Author</p>
         </div>
-        <button onclick="closeModal()" class="text-slate-400 hover:text-white p-1">
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-700 p-1">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <!-- Article content -->
-      <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 text-xs text-slate-300 leading-relaxed max-h-52 overflow-y-auto">
+      <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs text-slate-700 leading-relaxed max-h-56 overflow-y-auto font-sans">
         <p id="modalArticleBody"></p>
       </div>
 
       <!-- Status control -->
-      <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
+      <div class="flex items-center justify-between pt-3 border-t border-slate-100 text-xs">
         <div class="flex items-center space-x-2">
-          <span class="text-slate-400">Current Status:</span>
-          <select id="modalStatusSelect" onchange="updateArticleStatus()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-xs text-white focus:outline-none">
+          <span class="text-slate-500 font-medium">Update Stage:</span>
+          <select id="modalStatusSelect" onchange="updateArticleStatus()" class="bg-white border border-slate-200 rounded px-2.5 py-1 text-xs text-slate-800 font-medium focus:outline-none shadow-sm cursor-pointer">
             <option value="Drafting">In Drafting</option>
             <option value="Review">Needs Review</option>
             <option value="Layout">In Layout</option>
@@ -239,23 +240,22 @@
           </select>
         </div>
 
-        <button onclick="closeModal()" class="bg-rose-600 hover:bg-rose-500 text-white font-medium px-4 py-1.5 rounded-lg transition">
-          Done
+        <button onclick="closeModal()" class="bg-rose-700 hover:bg-rose-800 text-white font-medium px-4 py-1.5 rounded-lg transition shadow-sm">
+          Save & Close
         </button>
       </div>
     </div>
   </div>
 
   <!-- TOAST NOTIFICATION -->
-  <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 border border-slate-700 text-white text-xs px-4 py-2.5 rounded-lg shadow-xl hidden transition-all">
+  <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-lg shadow-xl hidden transition-all">
     Notification text
   </div>
 
   <!-- ============================================== -->
-  <!-- CLIENT JAVASCRIPT                              -->
+  <!-- JAVASCRIPT ENGINE                              -->
   <!-- ============================================== -->
   <script>
-    // Simple state
     const articles = [
       {
         id: 1,
@@ -326,24 +326,22 @@
       renderTeam();
     });
 
-    // Tab Navigation
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-rose-600', 'text-white');
-        btn.classList.add('text-slate-400');
+        btn.classList.remove('bg-rose-700', 'text-white', 'shadow-sm');
+        btn.classList.add('text-slate-600');
       });
 
       document.getElementById('tab-' + tabId).classList.remove('hidden');
       const activeBtn = document.getElementById('tab-btn-' + tabId);
       if (activeBtn) {
-        activeBtn.classList.add('bg-rose-600', 'text-white');
-        activeBtn.classList.remove('text-slate-400');
+        activeBtn.classList.add('bg-rose-700', 'text-white', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-600');
       }
       lucide.createIcons();
     }
 
-    // Render Articles
     function renderArticles() {
       const filter = document.getElementById('statusFilter').value;
       const container = document.getElementById('articlesList');
@@ -351,23 +349,23 @@
       const filtered = articles.filter(a => filter === 'all' || a.status === filter);
 
       container.innerHTML = filtered.map(a => {
-        let badgeColor = 'bg-slate-800 text-slate-300';
-        if (a.status === 'Drafting') badgeColor = 'bg-slate-800 text-slate-300';
-        if (a.status === 'Review') badgeColor = 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
-        if (a.status === 'Layout') badgeColor = 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
-        if (a.status === 'Ready') badgeColor = 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+        let badgeColor = 'bg-slate-100 text-slate-700 border-slate-200';
+        if (a.status === 'Drafting') badgeColor = 'bg-slate-100 text-slate-700 border-slate-200';
+        if (a.status === 'Review') badgeColor = 'bg-amber-50 text-amber-700 border-amber-200';
+        if (a.status === 'Layout') badgeColor = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+        if (a.status === 'Ready') badgeColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
 
         return `
-          <div onclick="openArticleModal(${a.id})" class="bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-700 p-4 rounded-xl cursor-pointer transition space-y-2">
+          <div onclick="openArticleModal(${a.id})" class="bg-white hover:bg-slate-50/80 border border-slate-200 hover:border-slate-300 p-4 rounded-xl cursor-pointer transition shadow-sm space-y-2">
             <div class="flex items-center justify-between text-xs">
-              <span class="text-rose-400 font-semibold uppercase text-[10px] tracking-wide">${a.section}</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${badgeColor}">${a.status}</span>
+              <span class="text-rose-700 font-semibold uppercase text-[10px] tracking-wide">${a.section}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold border ${badgeColor}">${a.status}</span>
             </div>
-            <h3 class="text-sm font-semibold text-white leading-snug line-clamp-2">${a.title}</h3>
-            <p class="text-xs text-slate-400 line-clamp-2">${a.body}</p>
-            <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-500 flex items-center justify-between">
-              <span>By ${a.author}</span>
-              <span class="text-rose-400 font-medium">Click to view &rarr;</span>
+            <h3 class="text-sm font-semibold text-slate-900 leading-snug line-clamp-2">${a.title}</h3>
+            <p class="text-xs text-slate-500 line-clamp-2">${a.body}</p>
+            <div class="pt-2 border-t border-slate-100 text-[11px] text-slate-500 flex items-center justify-between">
+              <span>By <strong>${a.author}</strong></span>
+              <span class="text-rose-700 font-semibold hover:underline">View draft &rarr;</span>
             </div>
           </div>
         `;
@@ -375,21 +373,20 @@
       lucide.createIcons();
     }
 
-    // Render Team
     function renderTeam(deptFilter = 'all') {
       const tbody = document.getElementById('teamTableBody');
       const filtered = team.filter(t => deptFilter === 'all' || t.dept === deptFilter);
 
       tbody.innerHTML = filtered.map(t => `
-        <tr class="hover:bg-slate-950/40 transition">
-          <td class="py-3 px-4 font-medium text-white">${t.name}</td>
-          <td class="py-3 px-3 text-slate-400">${t.dept}</td>
-          <td class="py-3 px-3 text-center font-semibold text-white">${t.tasks}</td>
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-4 font-semibold text-slate-900">${t.name}</td>
+          <td class="py-3 px-3 text-slate-600">${t.dept}</td>
+          <td class="py-3 px-3 text-center font-bold text-slate-900">${t.tasks}</td>
           <td class="py-3 px-3 text-center">
-            <span class="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">${t.status}</span>
+            <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">${t.status}</span>
           </td>
           <td class="py-3 px-4 text-right">
-            <span class="text-xs text-slate-300">${t.level}</span>
+            <span class="text-xs font-medium text-slate-600">${t.level}</span>
           </td>
         </tr>
       `).join('');
@@ -397,13 +394,12 @@
 
     function filterTeam(dept) {
       document.querySelectorAll('.team-filter-btn').forEach(btn => {
-        btn.className = 'team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white';
+        btn.className = 'team-filter-btn px-3 py-1 rounded text-slate-600 hover:bg-slate-200';
       });
-      event.target.className = 'team-filter-btn px-3 py-1 rounded bg-slate-800 text-white font-medium';
+      event.target.className = 'team-filter-btn px-3 py-1 rounded bg-slate-900 text-white font-medium';
       renderTeam(dept);
     }
 
-    // Modal Actions
     function openArticleModal(id) {
       currentArticleId = id;
       const art = articles.find(a => a.id === id);
@@ -432,7 +428,6 @@
       }
     }
 
-    // Submit Article Form
     function handleArticleSubmit(e) {
       e.preventDefault();
       const title = document.getElementById('inputTitle').value;

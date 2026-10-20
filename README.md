@@ -76,8 +76,7 @@ times-ag/
 
 ## 🔄 Recent Changelog & Update History
 
-- **v1.6 (Latest - 10x UI Overhaul):** Redesigned with bespoke editorial craftsmanship: Plus Jakarta Sans & Newsreader typography, Linear-inspired elevated cards with page allocations and author badges, interactive ⌘K search bar, and refined warm paper/obsidian theme palettes.
-- **v1.5:** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
+- **v1.5 (Latest):** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
 - **v1.4:** Restored streamlined left sidebar with clean Light Theme by default and instant Dark Mode toggle.
 - **v1.3:** Ultra-accessible layout redesign; simplified team contribution tracker and streamlined submission workflow.
 - **v1.2:** De-cluttered top navigation bar; removed heavy corporate metrics and simplified card typography.

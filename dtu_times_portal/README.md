@@ -36,8 +36,7 @@ Open `index.html` in Chrome, Edge, or Firefox.
 3. **Active Role Switcher:**
    * Experience the portal as **Arjun Mehta (Council Head / EIC)**, **Kavya Verma (Associate Editor)**, **Rohan Das (Columnist)**, or **Ishaan Sharma (Designer / Layout)**.
 
-- **v1.6 (Latest - 10x UI Overhaul):** Redesigned with bespoke editorial craftsmanship: Plus Jakarta Sans & Newsreader typography, Linear-inspired elevated cards with page allocations and author badges, interactive ⌘K search bar, and refined warm paper/obsidian theme palettes.
-- **v1.5:** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
+- **v1.5 (Latest):** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
 - **v1.4:** Restored streamlined left sidebar with clean Light Theme by default and instant Dark Mode toggle.
 
 ---

@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DTU Times — Edition Management & Collaboration Portal</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Newsreader / Playfair for Editorial feel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              500: '#e11d48',
+              700: '#be123c',
+              800: '#9f1239',
+              900: '#881337',
+              950: '#4c0519',
+              dtuRed: '#8B0000',
+              dtuGold: '#D97706',
+              navy: '#0F172A',
+              slateBg: '#090D16',
+              cardBg: '#131B2E',
+              borderDark: '#1E293B'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Newsreader', 'serif'],
+            title: ['Cinzel', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b1120; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    
+    .glass-panel {
+      background: rgba(19, 27, 46, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(225, 29, 72, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-[#090D16] text-slate-100 font-sans antialiased h-screen flex flex-col overflow-hidden select-none">
+
+  <!-- TOP HEADER / APP BAR -->
+  <header class="h-14 border-b border-slate-800 bg-[#0d1424] flex items-center justify-between px-4 z-30 shrink-0">
+    <div class="flex items-center space-x-3">
+      <!-- DTU Times Logo / Crest -->
+      <div class="flex items-center space-x-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-600 to-amber-600 flex items-center justify-center shadow-lg shadow-rose-950/40">
+          <span class="font-title font-bold text-white text-base tracking-wider">DT</span>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-title font-bold text-sm tracking-widest text-white uppercase">DTU TIMES</span>
+            <span class="text-[10px] bg-rose-500/20 text-rose-300 font-semibold px-2 py-0.5 rounded border border-rose-500/30">EDITION PORTAL</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-medium">Official Publication & Media Platform of DTU</p>
+        </div>
+      </div>
+
+      <!-- Current Edition Pill / Selector -->
+      <div class="h-5 w-px bg-slate-800 mx-2"></div>
+      <div class="relative">
+        <button id="editionSelectorBtn" class="flex items-center space-x-2 bg-slate-800/80 hover:bg-slate-750 px-3 py-1.5 rounded-md border border-slate-700/80 text-xs font-medium text-slate-200 transition">
+          <i data-lucide="book-open" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span id="currentEditionLabel">Edition 74 (Winter 2026)</span>
+          <span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded font-mono">In-Progress</span>
+          <i data-lucide="chevron-down" class="w-3 h-3 text-slate-400"></i>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="editionDropdown" class="hidden absolute left-0 mt-1.5 w-64 bg-[#111827] border border-slate-700 rounded-lg shadow-2xl py-1.5 z-50 text-xs">
+          <div class="px-3 py-1 text-[10px] font-semibold uppercase text-slate-400 tracking-wider">Switch Edition</div>
+          <button onclick="switchEdition('74')" class="w-full text-left px-3 py-2 hover:bg-slate-800 flex items-center justify-between text-slate-200">
+            <div>
+              <div class="font-semibold text-rose-400">Edition 74: Winter 2026</div>
+              <div class="text-[11px] text-slate-400">Target: Dec 2026 • In Drafting</div>
+            </div>
+            <i data-lucide="check" class="w-4 h-4 text-rose-400"></i>
+          </button>
+          <button onclick="switchEdition('73')" class="w-full text-left px-3 py-2 hover:bg-slate-800 flex items-center justify-between text-slate-300">
+            <div>
+              <div class="font-semibold">Edition 73: Universes We Build</div>
+              <div class="text-[11px] text-slate-400">Published Aug–Oct 2026</div>
+            </div>
+          </button>
+          <button onclick="switchEdition('71')" class="w-full text-left px-3 py-2 hover:bg-slate-800 flex items-center justify-between text-slate-300">
+            <div>
+              <div class="font-semibold">Edition 71: The Road Not Taken</div>
+              <div class="text-[11px] text-slate-400">Published June 2026</div>
+            </div>
+          </button>
+          <div class="border-t border-slate-800 my-1"></div>
+          <button onclick="openNewEditionModal()" class="w-full text-left px-3 py-2 text-rose-400 hover:bg-rose-500/10 flex items-center space-x-2 font-medium">
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+            <span>Initialize New Edition (Auto-Scaffold)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Search & Milestone Status -->
+    <div class="hidden md:flex items-center space-x-4">
+      <div class="flex items-center space-x-2 text-xs text-slate-300 bg-slate-900/90 px-3 py-1.5 rounded-md border border-slate-800">
+        <span class="text-slate-400">Edition 74 Progress:</span>
+        <div class="w-28 bg-slate-800 h-2 rounded-full overflow-hidden">
+          <div class="bg-gradient-to-r from-rose-500 to-amber-500 h-full w-[64%]"></div>
+        </div>
+        <span class="font-mono text-rose-400 font-bold">64%</span>
+        <span class="text-slate-500">|</span>
+        <span class="text-[11px] text-slate-400">32/50 Pages Ready</span>
+      </div>
+    </div>
+
+    <!-- Right Controls: Role Switcher & User Profile -->
+    <div class="flex items-center space-x-3">
+      <!-- Role Switcher (Crucial for testing all user journeys!) -->
+      <div class="flex items-center space-x-1.5 bg-slate-800/90 px-2.5 py-1 rounded-md border border-rose-900/40">
+        <span class="text-[10px] uppercase font-bold tracking-wider text-rose-300">Active Role:</span>
+        <select id="roleSelector" onchange="onRoleChanged(this.value)" class="bg-transparent text-xs text-white font-medium focus:outline-none cursor-pointer">
+          <option value="eic" class="bg-slate-900 text-white">Vyom / EIC (Council Head)</option>
+          <option value="associate" class="bg-slate-900 text-white">Associate Editor (Content Lead)</option>
+          <option value="columnist" class="bg-slate-900 text-white">Aishna Jain (Columnist)</option>
+          <option value="designer" class="bg-slate-900 text-white">Ujjwal Garg (Designer / Layout)</option>
+        </select>
+      </div>
+
+      <!-- Quick Action: Submit / New Item -->
+      <button onclick="openNewSubmissionModal()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 py-1.5 rounded-md flex items-center space-x-1.5 shadow-sm transition">
+        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+        <span class="hidden sm:inline">New Submission</span>
+      </button>
+
+      <!-- Google Drive Quick Sync Pill -->
+      <button onclick="switchView('drive')" title="Google Drive Auto-Scaffolder" class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-md transition relative">
+        <i data-lucide="hard-drive" class="w-4 h-4 text-emerald-400"></i>
+        <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full absolute top-1 right-1"></span>
+      </button>
+
+      <!-- Notifications -->
+      <button onclick="toggleNotifications()" class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-md transition relative">
+        <i data-lucide="bell" class="w-4 h-4"></i>
+        <span class="w-2 h-2 bg-rose-500 rounded-full absolute top-1 right-1 animate-pulse"></span>
+      </button>
+
+      <!-- User Avatar -->
+      <div class="flex items-center space-x-2 pl-2 border-l border-slate-800">
+        <div id="userAvatar" class="w-7 h-7 rounded-full bg-rose-700 flex items-center justify-center font-bold text-xs text-white border border-rose-400/30">
+          VR
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN BODY LAYOUT (MS Teams-style split) -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="w-64 bg-[#0c1220] border-r border-slate-800 flex flex-col justify-between shrink-0">
+      <!-- Upper Navigation Tree -->
+      <div class="p-3 space-y-4 overflow-y-auto">
+
+        <!-- Special Highlight: User Flow for Bhaiya -->
+        <div class="bg-gradient-to-r from-rose-950/60 to-purple-950/40 border border-rose-700/40 rounded-lg p-2.5">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-rose-300 flex items-center space-x-1">
+              <i data-lucide="sparkles" class="w-3 h-3 text-amber-400"></i>
+              <span>Presentation Mode</span>
+            </span>
+            <span class="text-[9px] bg-rose-500/30 text-rose-200 px-1 rounded">For Bhaiya</span>
+          </div>
+          <p class="text-[11px] text-slate-300 mb-2 leading-relaxed">
+            The end-to-end interactive journey and architectural proposal.
+          </p>
+          <button onclick="switchView('userflow')" class="w-full bg-rose-600/80 hover:bg-rose-600 text-white text-xs font-semibold py-1.5 rounded flex items-center justify-center space-x-1.5 transition">
+            <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+            <span>Inspect User Flow</span>
+          </button>
+        </div>
+
+        <!-- Primary Workspaces -->
+        <div>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1.5">Editorial Workspace</div>
+          <nav class="space-y-0.5">
+            <button onclick="switchView('kanban')" id="nav-kanban" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium text-slate-200 bg-slate-800/90 hover:bg-slate-800 transition">
+              <div class="flex items-center space-x-2.5">
+                <i data-lucide="trello" class="w-4 h-4 text-rose-400"></i>
+                <span>Editorial Pipeline</span>
+              </div>
+              <span class="text-[10px] bg-rose-900/60 text-rose-300 px-1.5 py-0.2 rounded font-mono font-bold">14</span>
+            </button>
+
+            <button onclick="switchView('sections')" id="nav-sections" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-850 transition">
+              <div class="flex items-center space-x-2.5">
+                <i data-lucide="layers" class="w-4 h-4 text-amber-400"></i>
+                <span>Standard Sections Hub</span>
+              </div>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-1.5 rounded font-mono">10</span>
+            </button>
+
+            <button onclick="switchView('studio')" id="nav-studio" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-850 transition">
+              <div class="flex items-center space-x-2.5">
+                <i data-lucide="pen-tool" class="w-4 h-4 text-indigo-400"></i>
+                <span>Drafting & Submission Studio</span>
+              </div>
+              <span class="text-[9px] bg-indigo-500/20 text-indigo-300 px-1 rounded">Live Editor</span>
+            </button>
+
+            <button onclick="switchView('visuals')" id="nav-visuals" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-850 transition">
+              <div class="flex items-center space-x-2.5">
+                <i data-lucide="image" class="w-4 h-4 text-pink-400"></i>
+                <span>Visuals & Asset Pairing</span>
+              </div>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-1.5 rounded font-mono">8</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Performance & Operations -->
+        <div>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1.5">Governance & Telemetry</div>
+          <nav class="space-y-0.5">
+            <button onclick="switchView('tracker')" id="nav-tracker" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-850 transition">
+              <div class="flex items-center space-x-2.5">
+                <i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i>
+                <span>Member Activity Tracker</span>
+              </div>
+              <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1 rounded font-bold">Appraisal</span>
+            </button>
+
+            <button onclick="switchView('drive')" id="nav-drive" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-850 transition">
+              <div class="flex items-center space-x-2.5">
+                <i data-lucide="folder-git-2" class="w-4 h-4 text-blue-400"></i>
+                <span>Google Drive Cloud Hub</span>
+              </div>
+              <span class="text-[9px] bg-blue-500/20 text-blue-300 px-1 rounded">API Sync</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Channels / Section Direct Access -->
+        <div>
+          <div class="flex items-center justify-between px-2 mb-1.5">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Sections (Edition 74)</span>
+            <button onclick="openNewSectionModal()" title="Add Custom Section" class="text-slate-400 hover:text-rose-400">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+          <div class="space-y-0.5 text-xs">
+            <a href="javascript:void(0)" onclick="filterKanbanBySection('Campus News')" class="flex items-center space-x-2 px-2.5 py-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 rounded">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="truncate">03. Campus & Univ News</span>
+            </a>
+            <a href="javascript:void(0)" onclick="filterKanbanBySection('Interviews')" class="flex items-center space-x-2 px-2.5 py-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 rounded">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span class="truncate">08. Dignitary Interviews</span>
+            </a>
+            <a href="javascript:void(0)" onclick="filterKanbanBySection('Columns')" class="flex items-center space-x-2 px-2.5 py-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 rounded">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+              <span class="truncate">09. Creative Columns</span>
+            </a>
+            <a href="javascript:void(0)" onclick="filterKanbanBySection('The Pulse')" class="flex items-center space-x-2 px-2.5 py-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 rounded">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+              <span class="truncate">10. The Pulse (Cosmic Archetype)</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom User Profile Bar -->
+      <div class="p-3 border-t border-slate-800 bg-[#090e18] flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-7 h-7 rounded bg-gradient-to-tr from-slate-700 to-slate-600 flex items-center justify-center text-xs font-bold text-white">
+            DTU
+          </div>
+          <div>
+            <div id="sidebarUserName" class="text-xs font-semibold text-slate-200">Vyom Raturi</div>
+            <div id="sidebarUserRole" class="text-[10px] text-rose-400">Council Head & Lead</div>
+          </div>
+        </div>
+        <button onclick="toggleHelpModal()" title="System Help" class="text-slate-400 hover:text-slate-200">
+          <i data-lucide="help-circle" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CENTER CONTENT STAGE -->
+    <main class="flex-1 bg-[#090D16] flex flex-col overflow-hidden relative">
+
+      <!-- ============================================== -->
+      <!-- VIEW 1: USER FLOW PRESENTATION MODE (FOR BHAIYA) -->
+      <!-- ============================================== -->
+      <section id="view-userflow" class="view-panel flex-1 overflow-y-auto p-6 hidden">
+        <div class="max-w-6xl mx-auto space-y-6">
+
+          <!-- Presentation Banner -->
+          <div class="bg-gradient-to-r from-rose-950/70 via-slate-900 to-indigo-950/70 border border-rose-500/30 rounded-xl p-6 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+              <div>
+                <div class="flex items-center space-x-2.5 mb-2">
+                  <span class="text-xs font-bold uppercase tracking-wider bg-rose-500 text-white px-2.5 py-0.5 rounded-full">
+                    Executive Proposal
+                  </span>
+                  <span class="text-xs text-rose-300 font-medium">Presented by Shubhi Dixit to Vyom Raturi</span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold font-serif text-white tracking-tight">
+                  From 25 Chaotic WhatsApp Groups to 1 Unified Edition Portal
+                </h1>
+                <p class="text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+                  How the new platform solves editorial bottlenecks, automates Google Drive storage, enforces multi-tier quality reviews, and provides concrete activity telemetry for year-end appraisals.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 shrink-0">
+                <button onclick="switchView('kanban')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-lg transition">
+                  <span>Open Interactive Portal</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Before vs After Reality Check -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- The Old Way (WhatsApp Hell) -->
+            <div class="glass-panel rounded-xl p-5 border-red-900/40 bg-red-950/10">
+              <div class="flex items-center space-x-2 text-rose-400 mb-3">
+                <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                <h3 class="font-bold text-sm uppercase tracking-wider">Current Friction (25+ WhatsApp Groups)</h3>
+              </div>
+              <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="x" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+                  <span><strong>Massive Associate Burnout:</strong> 9 associate editors must monitor 20–25 chats, chasing article deadlines manually every hour.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="x" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+                  <span><strong>Asset Compression & Loss:</strong> Photos and artwork shared on WhatsApp lose print resolution and get scattered in phone galleries.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="x" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+                  <span><strong>Version Chaos:</strong> Designers are unsure if a paragraph sent at 2:00 AM on WhatsApp is the final sign-off or an unapproved draft.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="x" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+                  <span><strong>Unverifiable Appraisals:</strong> Year-end leadership selections rely on vague recall or Google Forms where members exaggerate contributions.</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- The New Portal Way -->
+            <div class="glass-panel rounded-xl p-5 border-emerald-900/40 bg-emerald-950/10">
+              <div class="flex items-center space-x-2 text-emerald-400 mb-3">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                <h3 class="font-bold text-sm uppercase tracking-wider">The Edition Portal Architecture</h3>
+              </div>
+              <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                  <span><strong>Single Source of Truth:</strong> One clean web portal. Standard recurring sections auto-populate autonomously on edition creation.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                  <span><strong>Automated Google Drive Scaffolding:</strong> API provisions structured folders (`/Columnists`, `/Illustrations`, `/Photos`) with email permissions.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                  <span><strong>5-Stage Editorial Gatekeeper:</strong> Draft &rarr; Associate Review &rarr; EIC Polish &rarr; Design Pairing &rarr; Print-Ready. Zero ambiguity.</span>
+                </li>
+                <li class="flex items-start space-x-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                  <span><strong>Concrete Activity Tracker:</strong> Tracks every submission timestamp, turnaround speed, and quality score for clear end-of-year appraisals.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Interactive User Journey Stepper -->
+          <div class="glass-panel rounded-xl p-6">
+            <h2 class="text-base font-bold text-white mb-4 flex items-center space-x-2">
+              <i data-lucide="milestone" class="w-4 h-4 text-amber-400"></i>
+              <span>The 5-Step Editorial Lifecycle (Click any step to inspect)</span>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
+              <!-- Step 1 -->
+              <button onclick="showFlowStep(1)" id="flowStepBtn-1" class="flow-step-btn text-left p-3.5 rounded-lg border-2 border-rose-500 bg-rose-500/10 transition">
+                <div class="text-[10px] font-mono font-bold text-rose-400 uppercase">Phase 01</div>
+                <div class="text-xs font-bold text-white mt-1">Edition Initialization</div>
+                <div class="text-[11px] text-slate-400 mt-1">EIC spawns edition & scaffolds Drive</div>
+              </button>
+              <!-- Step 2 -->
+              <button onclick="showFlowStep(2)" id="flowStepBtn-2" class="flow-step-btn text-left p-3.5 rounded-lg border border-slate-800 bg-slate-900 hover:border-slate-700 transition">
+                <div class="text-[10px] font-mono font-bold text-slate-400 uppercase">Phase 02</div>
+                <div class="text-xs font-bold text-white mt-1">Section Assignment</div>
+                <div class="text-[11px] text-slate-400 mt-1">Associates allocate columnists</div>
+              </button>
+              <!-- Step 3 -->
+              <button onclick="showFlowStep(3)" id="flowStepBtn-3" class="flow-step-btn text-left p-3.5 rounded-lg border border-slate-800 bg-slate-900 hover:border-slate-700 transition">
+                <div class="text-[10px] font-mono font-bold text-slate-400 uppercase">Phase 03</div>
+                <div class="text-xs font-bold text-white mt-1">Drafting & Upload</div>
+                <div class="text-[11px] text-slate-400 mt-1">Members write copy & attach art</div>
+              </button>
+              <!-- Step 4 -->
+              <button onclick="showFlowStep(4)" id="flowStepBtn-4" class="flow-step-btn text-left p-3.5 rounded-lg border border-slate-800 bg-slate-900 hover:border-slate-700 transition">
+                <div class="text-[10px] font-mono font-bold text-slate-400 uppercase">Phase 04</div>
+                <div class="text-xs font-bold text-white mt-1">Editorial Review Gate</div>
+                <div class="text-[11px] text-slate-400 mt-1">Associate & EIC feedback loop</div>
+              </button>
+              <!-- Step 5 -->
+              <button onclick="showFlowStep(5)" id="flowStepBtn-5" class="flow-step-btn text-left p-3.5 rounded-lg border border-slate-800 bg-slate-900 hover:border-slate-700 transition">
+                <div class="text-[10px] font-mono font-bold text-slate-400 uppercase">Phase 05</div>
+                <div class="text-xs font-bold text-white mt-1">Design & Print Release</div>
+                <div class="text-[11px] text-slate-400 mt-1">InDesign layout & final proof</div>
+              </button>
+            </div>
+
+            <!-- Dynamic Detail Pane for Selected Step -->
+            <div id="flowStepDetail" class="bg-slate-900/90 border border-slate-800 rounded-lg p-5">
+              <!-- Content loaded via JS -->
+            </div>
+          </div>
+
+          <!-- Rollout Roadmap -->
+          <div class="glass-panel rounded-xl p-5 border-slate-800">
+            <h3 class="text-sm font-bold text-white mb-2 flex items-center space-x-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-indigo-400"></i>
+              <span>Target Rollout Timeline (Aligned with Vyom's Plan)</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-3">
+              <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+                <span class="text-[10px] bg-rose-500/20 text-rose-300 font-bold px-2 py-0.5 rounded">NOV 2026</span>
+                <h4 class="font-bold text-white mt-2">Architecture & Prototype Sign-Off</h4>
+                <p class="text-slate-400 mt-1">UI approval with Bhaiya, Google Drive API setup, database credentials reuse.</p>
+              </div>
+              <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+                <span class="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded">DEC 2026 / JAN 2027</span>
+                <h4 class="font-bold text-white mt-2">MVP Parallel Testing</h4>
+                <p class="text-slate-400 mt-1">Launch with 1 single broadcast WhatsApp group + the Portal for Edition 74 team.</p>
+              </div>
+              <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded">MARCH 2027</span>
+                <h4 class="font-bold text-white mt-2">Full Production & Appraisal</h4>
+                <p class="text-slate-400 mt-1">Edition 74 release + automated performance reports for annual selections.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 2: EDITORIAL KANBAN & PIPELINE            -->
+      <!-- ============================================== -->
+      <section id="view-kanban" class="view-panel flex-1 flex flex-col overflow-hidden">
+        <!-- Sub-header Filters -->
+        <div class="h-12 border-b border-slate-800 bg-[#0d1322] px-4 flex items-center justify-between shrink-0">
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center space-x-1.5">
+              <i data-lucide="kanban" class="w-4 h-4 text-rose-400"></i>
+              <span>Edition 74 Editorial Board</span>
+            </span>
+            <span class="text-slate-600">|</span>
+            <!-- Vertical Filter -->
+            <div class="flex items-center space-x-1 text-xs">
+              <button onclick="filterBoard('all')" class="board-filter-btn px-2.5 py-1 rounded bg-rose-600 text-white font-medium">All Sections</button>
+              <button onclick="filterBoard('content')" class="board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">Content</button>
+              <button onclick="filterBoard('visuals')" class="board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">Visuals/Art</button>
+              <button onclick="filterBoard('design')" class="board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">Layout</button>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2 text-xs">
+            <span class="text-[11px] text-slate-400">Active View: <strong>14 Tracked Articles</strong></span>
+            <button onclick="openNewSubmissionModal()" class="bg-slate-800 hover:bg-slate-750 text-slate-200 px-2.5 py-1 rounded border border-slate-700 flex items-center space-x-1">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Add Article</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Horizontal Scrollable Kanban Columns -->
+        <div class="flex-1 overflow-x-auto p-4 flex space-x-4 bg-[#090D16]">
+
+          <!-- COLUMN 1: DRAFTING -->
+          <div class="w-80 shrink-0 flex flex-col bg-[#0f172a]/70 rounded-xl border border-slate-800/80 max-h-full">
+            <div class="p-3 border-b border-slate-800/80 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                <span class="font-semibold text-xs text-slate-200 uppercase tracking-wider">In Drafting</span>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono">3</span>
+              </div>
+              <span class="text-[10px] text-slate-500">2nd & 3rd Yrs Writing</span>
+            </div>
+            <div id="col-drafting" class="p-2 space-y-2.5 overflow-y-auto flex-1">
+              <!-- Cards rendered by JS -->
+            </div>
+          </div>
+
+          <!-- COLUMN 2: ASSOCIATE REVIEW -->
+          <div class="w-80 shrink-0 flex flex-col bg-[#0f172a]/70 rounded-xl border border-slate-800/80 max-h-full">
+            <div class="p-3 border-b border-slate-800/80 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                <span class="font-semibold text-xs text-slate-200 uppercase tracking-wider">Associate Review</span>
+                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">4</span>
+              </div>
+              <span class="text-[10px] text-amber-400/80">Feedback & Edits</span>
+            </div>
+            <div id="col-review" class="p-2 space-y-2.5 overflow-y-auto flex-1">
+              <!-- Cards rendered by JS -->
+            </div>
+          </div>
+
+          <!-- COLUMN 3: EIC POLISH -->
+          <div class="w-80 shrink-0 flex flex-col bg-[#0f172a]/70 rounded-xl border border-slate-800/80 max-h-full">
+            <div class="p-3 border-b border-slate-800/80 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                <span class="font-semibold text-xs text-slate-200 uppercase tracking-wider">EIC Polish & Sign-Off</span>
+                <span class="text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono">2</span>
+              </div>
+              <span class="text-[10px] text-rose-400/80">Vyom & Shalvi Review</span>
+            </div>
+            <div id="col-eic" class="p-2 space-y-2.5 overflow-y-auto flex-1">
+              <!-- Cards rendered by JS -->
+            </div>
+          </div>
+
+          <!-- COLUMN 4: DESIGN & LAYOUT -->
+          <div class="w-80 shrink-0 flex flex-col bg-[#0f172a]/70 rounded-xl border border-slate-800/80 max-h-full">
+            <div class="p-3 border-b border-slate-800/80 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+                <span class="font-semibold text-xs text-slate-200 uppercase tracking-wider">Design & Layout Pairing</span>
+                <span class="text-[10px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-mono">3</span>
+              </div>
+              <span class="text-[10px] text-indigo-400/80">InDesign / Art Matching</span>
+            </div>
+            <div id="col-layout" class="p-2 space-y-2.5 overflow-y-auto flex-1">
+              <!-- Cards rendered by JS -->
+            </div>
+          </div>
+
+          <!-- COLUMN 5: READY FOR PRINT / ARCHIVED -->
+          <div class="w-80 shrink-0 flex flex-col bg-[#0f172a]/70 rounded-xl border border-slate-800/80 max-h-full">
+            <div class="p-3 border-b border-slate-800/80 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span class="font-semibold text-xs text-slate-200 uppercase tracking-wider">Ready for Print / PDF</span>
+                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">2</span>
+              </div>
+              <span class="text-[10px] text-emerald-400/80">Final Proof Locked</span>
+            </div>
+            <div id="col-print" class="p-2 space-y-2.5 overflow-y-auto flex-1">
+              <!-- Cards rendered by JS -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 3: STANDARD SECTIONS HUB                  -->
+      <!-- ============================================== -->
+      <section id="view-sections" class="view-panel flex-1 overflow-y-auto p-6 hidden">
+        <div class="max-w-6xl mx-auto space-y-6">
+
+          <!-- Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+            <div>
+              <div class="flex items-center space-x-2">
+                <h2 class="text-xl font-bold font-serif text-white">Standard Edition Template Architecture</h2>
+                <span class="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded">Autonomously Pre-Populated</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Recurring sections generated automatically on every edition release, mirroring the actual DTU Times magazine structure.
+              </p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="openNewSectionModal()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center space-x-1.5 shadow transition">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Add Custom Thematic Section</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section Cards Grid -->
+          <div id="standardSectionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Dynamic Section Cards from JS -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 4: DRAFTING & SUBMISSION STUDIO           -->
+      <!-- ============================================== -->
+      <section id="view-studio" class="view-panel flex-1 flex flex-col overflow-hidden hidden">
+        <!-- Editor Toolbar -->
+        <div class="h-12 border-b border-slate-800 bg-[#0d1322] px-4 flex items-center justify-between shrink-0">
+          <div class="flex items-center space-x-3">
+            <span class="text-xs font-bold text-slate-200 flex items-center space-x-1.5">
+              <i data-lucide="file-edit" class="w-4 h-4 text-indigo-400"></i>
+              <span id="editorDocTitle">Campus News: Induction Program at Raj Soin Hall</span>
+            </span>
+            <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono" id="editorDocStatus">Associate Review</span>
+          </div>
+
+          <div class="flex items-center space-x-3 text-xs">
+            <span class="text-slate-400 text-[11px]">Word Count: <span id="wordCountLabel" class="text-white font-mono font-bold">428</span> / 500 target</span>
+            <button onclick="saveDraftAction()" class="bg-slate-800 hover:bg-slate-750 text-slate-300 px-3 py-1.5 rounded border border-slate-700 flex items-center space-x-1">
+              <i data-lucide="save" class="w-3.5 h-3.5"></i>
+              <span>Save Draft</span>
+            </button>
+            <button onclick="submitForReviewAction()" class="bg-rose-600 hover:bg-rose-500 text-white font-semibold px-3.5 py-1.5 rounded flex items-center space-x-1.5 shadow">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>Submit for Next Gate</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Split Screen: Left = Document Editor, Right = Asset & Feedback Rail -->
+        <div class="flex-1 flex overflow-hidden">
+          
+          <!-- Document Content Area -->
+          <div class="flex-1 p-6 overflow-y-auto bg-[#0a0f1d] flex justify-center">
+            <div class="w-full max-w-3xl space-y-4">
+              <!-- Title and Metadata fields -->
+              <div class="space-y-2 pb-4 border-b border-slate-800">
+                <input id="studioTitleInput" type="text" value="Orientation-cum-Induction Program at Raj Soin Hall: Welcoming the Batch of 2026-30" class="w-full bg-transparent text-xl font-bold font-serif text-white placeholder-slate-500 focus:outline-none">
+                <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                  <span>Author: <strong class="text-slate-200">Aishna Jain (2nd Yr, CHE)</strong></span>
+                  <span>•</span>
+                  <span>Assigned By: <strong class="text-slate-200">Vyom Raturi (Associate Editor)</strong></span>
+                  <span>•</span>
+                  <span>Target Section: <strong class="text-rose-400">03. Campus News</strong></span>
+                </div>
+              </div>
+
+              <!-- Live Textarea with realistic edition draft -->
+              <textarea id="studioContentTextarea" oninput="updateWordCount(this.value)" rows="18" class="w-full bg-transparent text-sm leading-relaxed text-slate-200 font-sans focus:outline-none resize-none placeholder-slate-600">The academic year commenced with the grand Orientation-cum-Induction Program held at Raj Soin Hall on 27th and 28th August 2026, marking the entry of over 2,800 aspiring engineers and designers into the historic DTU campus. The ceremony was graced by the esteemed presence of Prof. Prateek Sharma, Hon'ble Vice Chancellor, DTU, alongside Prof. Sudhir G Warkar, Dean of Academic UG, and prominent alumni keynote speakers.
+
+In his inaugural address, Prof. Prateek Sharma emphasized the university's 85-year legacy of academic distinction, tracing back to DCE's inception at Kashmere Gate. He exhorted the freshers to cultivate a spirit of interdisciplinary innovation, highlighting recent achievements such as the premier citation honors and the expansion of renewable energy curricula headed by Prof. M. Rizwan.
+
+The two-day orientation included interactive presentations from the 60+ technical and cultural student societies. Team DTU Times showcased its journey through Edition 73, encouraging incoming students to chronicle campus milestones and voice community perspectives. Student advisors Rahul Dev and Sharanya Bhadwal briefed the new cohort on holistic mentorship frameworks, while peer guides navigated them through department laboratories, sports complexes, and the central library.</textarea>
+            </div>
+          </div>
+
+          <!-- Right Sidebar: Required Visuals & Associate Feedback Comments -->
+          <div class="w-80 border-l border-slate-800 bg-[#0d1424] flex flex-col justify-between overflow-y-auto p-4 space-y-5 shrink-0">
+            <!-- Visual Asset Requests -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1">
+                  <i data-lucide="image" class="w-3 h-3 text-pink-400"></i>
+                  <span>Linked Visual Assets</span>
+                </span>
+                <span class="text-[9px] bg-pink-500/20 text-pink-300 px-1 rounded">Drive Sync</span>
+              </div>
+
+              <div class="space-y-2 text-xs">
+                <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-200 truncate">raj_soin_hall_inauguration.raw</span>
+                    <span class="text-[9px] text-emerald-400 font-bold">Uploaded</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 mt-1">By: Photography Team (Gitanjali)</div>
+                  <a href="javascript:void(0)" onclick="alert('Viewing high-res asset in Drive viewer!')" class="text-[10px] text-rose-400 hover:underline flex items-center space-x-1 mt-1">
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                    <span>Open in Google Drive</span>
+                  </a>
+                </div>
+
+                <div class="bg-slate-900 p-2.5 rounded-lg border border-dashed border-slate-700">
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-300">Spot Illustration: 85 Years Crest</span>
+                    <span class="text-[9px] text-amber-400 font-bold">Assigned</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 mt-1">Assigned to Pratishtha Gosain</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inline Review Comments & Revisions -->
+            <div class="flex-1 flex flex-col">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1">
+                <i data-lucide="message-square" class="w-3 h-3 text-amber-400"></i>
+                <span>Associate Editorial Feedback</span>
+              </span>
+
+              <div class="space-y-2.5 overflow-y-auto flex-1 text-xs">
+                <!-- Comment 1 -->
+                <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                  <div class="flex items-center justify-between text-[11px] mb-1">
+                    <strong class="text-rose-400">Vyom Raturi (Associate)</strong>
+                    <span class="text-[9px] text-slate-500">2 hrs ago</span>
+                  </div>
+                  <p class="text-slate-300 leading-relaxed text-[11px]">
+                    "Please double check if Dean Academic UG was Prof. Sudhir G Warkar or if Prof. Rizwan spoke first. Also verify the exact fresher count."
+                  </p>
+                </div>
+
+                <!-- Comment 2 -->
+                <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
+                  <div class="flex items-center justify-between text-[11px] mb-1">
+                    <strong class="text-slate-200">Aishna Jain (Columnist)</strong>
+                    <span class="text-[9px] text-slate-500">45m ago</span>
+                  </div>
+                  <p class="text-slate-300 leading-relaxed text-[11px]">
+                    "Verified from the press release — Prof. Warkar was indeed present. Updated word count to 428 words."
+                  </p>
+                </div>
+              </div>
+
+              <!-- Add Comment Input -->
+              <div class="mt-3 pt-2 border-t border-slate-800">
+                <div class="flex space-x-1.5">
+                  <input id="feedbackInput" type="text" placeholder="Leave review feedback..." class="flex-1 bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white focus:outline-none">
+                  <button onclick="postFeedbackComment()" class="bg-rose-600 hover:bg-rose-500 text-white px-2 rounded text-xs">
+                    <i data-lucide="corner-down-left" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 5: MEMBER ACTIVITY & APPRAISAL TRACKER    -->
+      <!-- ============================================== -->
+      <section id="view-tracker" class="view-panel flex-1 overflow-y-auto p-6 hidden">
+        <div class="max-w-6xl mx-auto space-y-6">
+
+          <!-- Header & Appraisal Banner -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+            <div>
+              <div class="flex items-center space-x-2">
+                <h2 class="text-xl font-bold font-serif text-white">Member Activity & Annual Appraisal Tracker</h2>
+                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded">Tamper-Proof Telemetry</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Real contribution telemetry solving the year-end selection dilemma. Replaces unverified Google Forms with concrete activity records.
+              </p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="exportAppraisalReport()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center space-x-1.5 shadow transition">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Export Appraisal Report (PDF/CSV)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- High-Level Metric Tiles -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div class="glass-panel p-3.5 rounded-lg border-slate-800">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Active Society Members</span>
+              <div class="text-xl font-bold text-white mt-1">84 Active</div>
+              <span class="text-[10px] text-emerald-400 font-medium">Columnists, Design, Photo, Web</span>
+            </div>
+            <div class="glass-panel p-3.5 rounded-lg border-slate-800">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Avg On-Time Submission</span>
+              <div class="text-xl font-bold text-amber-400 mt-1">91.4%</div>
+              <span class="text-[10px] text-slate-400 font-medium">+14% vs. WhatsApp era</span>
+            </div>
+            <div class="glass-panel p-3.5 rounded-lg border-slate-800">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Review Turnaround SLA</span>
+              <div class="text-xl font-bold text-indigo-400 mt-1">16.8 Hrs</div>
+              <span class="text-[10px] text-slate-400 font-medium">Associate review speed</span>
+            </div>
+            <div class="glass-panel p-3.5 rounded-lg border-slate-800">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Verified Contributions</span>
+              <div class="text-xl font-bold text-rose-400 mt-1">312 Logged</div>
+              <span class="text-[10px] text-rose-300 font-medium">Editions + Social Media</span>
+            </div>
+          </div>
+
+          <!-- Leaderboard and Member Matrix Table -->
+          <div class="glass-panel rounded-xl overflow-hidden border-slate-800">
+            <div class="p-3.5 bg-slate-900/80 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="flex items-center space-x-2 text-xs">
+                <span class="font-bold text-white uppercase tracking-wider">Annual Member Appraisal Scorecard</span>
+                <span class="text-slate-500">|</span>
+                <button onclick="filterTracker('all')" class="tracker-dept-btn px-2 py-0.5 rounded bg-rose-600 text-white font-medium text-[11px]">All</button>
+                <button onclick="filterTracker('Columnist')" class="tracker-dept-btn px-2 py-0.5 rounded text-slate-400 hover:bg-slate-800 text-[11px]">Columnists</button>
+                <button onclick="filterTracker('Design')" class="tracker-dept-btn px-2 py-0.5 rounded text-slate-400 hover:bg-slate-800 text-[11px]">Design/Illustrations</button>
+                <button onclick="filterTracker('Tech')" class="tracker-dept-btn px-2 py-0.5 rounded text-slate-400 hover:bg-slate-800 text-[11px]">Web/Tech</button>
+              </div>
+              <input id="trackerSearch" oninput="searchTracker(this.value)" type="text" placeholder="Search member by name..." class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-xs text-white focus:outline-none w-56">
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-950/70 text-slate-400 uppercase text-[10px] font-mono border-b border-slate-800">
+                  <tr>
+                    <th class="py-2.5 px-4">Member / Department</th>
+                    <th class="py-2.5 px-3">Year / Branch</th>
+                    <th class="py-2.5 px-3 text-center">Submissions</th>
+                    <th class="py-2.5 px-3 text-center">On-Time %</th>
+                    <th class="py-2.5 px-3 text-center">Avg Quality</th>
+                    <th class="py-2.5 px-3 text-center">Turnaround</th>
+                    <th class="py-2.5 px-3 text-center">Merit Index (OMI)</th>
+                    <th class="py-2.5 px-4 text-right">Appraisal Decision</th>
+                  </tr>
+                </thead>
+                <tbody id="trackerTableBody" class="divide-y divide-slate-800/60 text-slate-200">
+                  <!-- Generated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 6: GOOGLE DRIVE CLOUD HUB                 -->
+      <!-- ============================================== -->
+      <section id="view-drive" class="view-panel flex-1 overflow-y-auto p-6 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+
+          <!-- Header -->
+          <div class="pb-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center space-x-2">
+                <h2 class="text-xl font-bold font-serif text-white">Google Drive Storage & API Integration</h2>
+                <span class="text-[10px] bg-blue-500/20 text-blue-300 font-bold px-2 py-0.5 rounded">Zero Database Load</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Automated directory provisioning for heavy camera RAWs, InDesign .indd files, and vector art via Google Drive API.
+              </p>
+            </div>
+            <button onclick="simulateDriveSync()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center space-x-1.5 transition">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+              <span>Re-sync Drive Permissions</span>
+            </button>
+          </div>
+
+          <!-- Automated Directory Tree -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <!-- Left: Tree Mock -->
+            <div class="md:col-span-2 glass-panel rounded-xl p-4 border-slate-800 space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-xs font-semibold text-slate-300">
+                <span>Google Drive Automated Folder Scaffolding</span>
+                <span class="text-[10px] text-emerald-400 font-mono">Status: Connected & Synced</span>
+              </div>
+
+              <!-- Interactive Tree view -->
+              <div class="font-mono text-xs space-y-1.5 pl-2 text-slate-300">
+                <div class="flex items-center space-x-2 text-rose-400 font-bold">
+                  <i data-lucide="folder" class="w-4 h-4 fill-rose-500/20"></i>
+                  <span>DTU_Times_Editions_Drive/</span>
+                </div>
+                <div class="pl-5 space-y-1">
+                  <div class="flex items-center space-x-2 text-amber-400 font-semibold">
+                    <i data-lucide="folder" class="w-4 h-4 fill-amber-500/20"></i>
+                    <span>Edition_74_Winter_2026/</span>
+                    <span class="text-[9px] bg-amber-500/20 px-1 rounded text-amber-300 font-sans">Current</span>
+                  </div>
+                  <!-- Subfolders -->
+                  <div class="pl-5 space-y-1 text-slate-400">
+                    <div class="flex items-center space-x-2 hover:text-white cursor-pointer py-0.5">
+                      <i data-lucide="folder" class="w-3.5 h-3.5 text-blue-400"></i>
+                      <span>01_Content_Manuscripts/</span>
+                      <span class="text-[9px] text-slate-500 font-sans">(14 files)</span>
+                    </div>
+                    <div class="flex items-center space-x-2 hover:text-white cursor-pointer py-0.5">
+                      <i data-lucide="folder" class="w-3.5 h-3.5 text-pink-400"></i>
+                      <span>02_Photography_Raw_HighRes/</span>
+                      <span class="text-[9px] text-slate-500 font-sans">(86 RAWs, 1.8 GB)</span>
+                    </div>
+                    <div class="flex items-center space-x-2 hover:text-white cursor-pointer py-0.5">
+                      <i data-lucide="folder" class="w-3.5 h-3.5 text-purple-400"></i>
+                      <span>03_Illustrations_Vector_Art/</span>
+                      <span class="text-[9px] text-slate-500 font-sans">(18 .ai & .png)</span>
+                    </div>
+                    <div class="flex items-center space-x-2 hover:text-white cursor-pointer py-0.5">
+                      <i data-lucide="folder" class="w-3.5 h-3.5 text-indigo-400"></i>
+                      <span>04_Design_Spreads_InDesign/</span>
+                      <span class="text-[9px] text-slate-500 font-sans">(6 .indd spreads)</span>
+                    </div>
+                    <div class="flex items-center space-x-2 hover:text-white cursor-pointer py-0.5">
+                      <i data-lucide="folder" class="w-3.5 h-3.5 text-emerald-400"></i>
+                      <span>05_Print_Ready_Masters/</span>
+                      <span class="text-[9px] text-slate-500 font-sans">(Pre-press proofs)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Access Control Policy -->
+            <div class="glass-panel rounded-xl p-4 border-slate-800 space-y-3 text-xs">
+              <h3 class="font-bold text-slate-200">Email-Based Permission Mapping</h3>
+              <p class="text-slate-400 leading-relaxed text-[11px]">
+                Users are matched using their verified DTU university email (`@dtu.ac.in`). Permissions are granted programmatically:
+              </p>
+              <div class="space-y-2 text-[11px]">
+                <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                  <span class="font-bold text-rose-400">Council & EIC:</span>
+                  <p class="text-slate-400">Full `Manager/Owner` permissions across all edition directories.</p>
+                </div>
+                <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                  <span class="font-bold text-amber-400">Associates:</span>
+                  <p class="text-slate-400">`Editor` permissions for their specific vertical folder.</p>
+                </div>
+                <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                  <span class="font-bold text-blue-400">Core Members:</span>
+                  <p class="text-slate-400">`Contributor` upload-only access scoped strictly to assigned task folders.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 7: VISUALS & ASSET PAIRING HUB            -->
+      <!-- ============================================== -->
+      <section id="view-visuals" class="view-panel flex-1 overflow-y-auto p-6 hidden">
+        <div class="max-w-6xl mx-auto space-y-6">
+          <div class="pb-4 border-b border-slate-800 flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold font-serif text-white">Visuals & Cross-Vertical Asset Pairing</h2>
+              <p class="text-xs text-slate-400 mt-1">
+                Matching approved columnist copy with illustrations and event photography before InDesign layout handoff.
+              </p>
+            </div>
+          </div>
+
+          <div id="visualPairsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: EDITORIAL REVIEW & APPROVAL DRAWER      -->
+  <!-- ============================================== -->
+  <div id="reviewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+    <div class="bg-[#111827] border border-slate-700 w-full max-w-3xl rounded-xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-slate-800 bg-[#0d1424] flex items-center justify-between">
+        <div>
+          <span id="modalSectionBadge" class="text-[10px] font-bold uppercase tracking-wider text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">Campus News</span>
+          <h3 id="modalTitle" class="text-lg font-bold font-serif text-white mt-1">Orientation-cum-Induction Program at Raj Soin Hall</h3>
+          <p id="modalAuthor" class="text-xs text-slate-400">By Aishna Jain (2nd Year, CHE) • 428 words</p>
+        </div>
+        <button onclick="closeReviewModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Two Tabs: Draft Content vs Review Actions) -->
+      <div class="flex-1 overflow-y-auto p-5 space-y-4">
+        <!-- Status Stepper Bar -->
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800 flex items-center justify-between text-xs">
+          <span class="text-slate-400 font-medium">Pipeline Stage:</span>
+          <div class="flex items-center space-x-1.5 font-bold" id="modalStageIndicator">
+            <span class="text-amber-400">Associate Review</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span class="text-slate-500">EIC Polish</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span class="text-slate-500">Layout</span>
+          </div>
+        </div>
+
+        <!-- Article Draft Preview -->
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase text-slate-400 tracking-wider">Submitted Article Manuscript</label>
+          <div id="modalArticleText" class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-xs text-slate-200 leading-relaxed font-sans max-h-56 overflow-y-auto">
+            <!-- Article text loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Linked Assets in Drive -->
+        <div>
+          <label class="text-xs font-bold uppercase text-slate-400 tracking-wider">Associated Drive Files</label>
+          <div id="modalDrivePills" class="flex flex-wrap gap-2 mt-1.5 text-xs">
+            <!-- Drive asset pills -->
+          </div>
+        </div>
+
+        <!-- Feedback & Reviewer Notes -->
+        <div class="space-y-1.5">
+          <label class="text-xs font-bold uppercase text-slate-400 tracking-wider">Associate Reviewer Remarks</label>
+          <textarea id="modalReviewRemarks" rows="2" placeholder="Leave instructions or changes required..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none placeholder-slate-500"></textarea>
+        </div>
+      </div>
+
+      <!-- Modal Footer with Role-Aware Action Buttons -->
+      <div class="p-3.5 border-t border-slate-800 bg-[#0d1424] flex items-center justify-between">
+        <button onclick="requestRevisionAction()" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-600/40 text-xs font-semibold px-3 py-2 rounded-lg flex items-center space-x-1.5 transition">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span>Request Revisions</span>
+        </button>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="closeReviewModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-3 py-2 rounded-lg transition">
+            Cancel
+          </button>
+          <button onclick="advanceStageAction()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center space-x-1.5 shadow transition">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span id="advanceStageBtnText">Approve & Advance to Next Stage</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: INITIALIZE NEW EDITION (AUTO-SCAFFOLD)   -->
+  <!-- ============================================== -->
+  <div id="newEditionModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+    <div class="bg-[#111827] border border-slate-700 w-full max-w-lg rounded-xl shadow-2xl p-5 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center space-x-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+            <span>Initialize New Edition (Autonomous Scaffolding)</span>
+          </h3>
+          <p class="text-xs text-slate-400">Automatically provisions Drive folders & standard sections.</p>
+        </div>
+        <button onclick="closeNewEditionModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Edition Title / Number</label>
+          <input id="newEditionNumber" type="text" value="Edition 75 (Spring 2027)" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Central Edition Motif / Theme</label>
+          <input id="newEditionTheme" type="text" value="Reverberations of Spring: Tech & Culture at DTU" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Pre-Populate Standard Sections (Recommended)</label>
+          <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 text-slate-300 text-[11px]">
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" checked disabled class="accent-rose-500">
+              <span>01. VC Address & Dignitary Notes</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" checked disabled class="accent-rose-500">
+              <span>02. Campus News, Student & Faculty Accolades</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" checked disabled class="accent-rose-500">
+              <span>03. Cultural Society Recaps (Engifest/Yuvaan) & Interviews</span>
+            </label>
+            <label class="flex items-center space-x-2">
+              <input type="checkbox" checked disabled class="accent-rose-500">
+              <span>04. Creative Columns, Visual Arts Gallery & The Pulse</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex justify-end space-x-2">
+        <button onclick="closeNewEditionModal()" class="bg-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded">Cancel</button>
+        <button onclick="confirmInitializeEdition()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-4 py-1.5 rounded flex items-center space-x-1.5 shadow">
+          <i data-lucide="play" class="w-3.5 h-3.5"></i>
+          <span>Initialize & Scaffold Drive</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- APPLICATION SCRIPT & CORE ENGINE -->
+  <script>
+    // ==========================================
+    // DATA MODEL & INITIAL STATE
+    // ==========================================
+    const state = {
+      activeRole: 'eic', // 'eic' | 'associate' | 'columnist' | 'designer'
+      activeEdition: '74',
+      activeView: 'userflow', // default view for bhaiya
+      selectedArticleId: null,
+
+      articles: [
+        {
+          id: 'art-1',
+          title: 'Orientation-cum-Induction Program at Raj Soin Hall: Batch of 2026-30',
+          section: 'Campus News',
+          author: 'Aishna Jain',
+          authorYear: '2nd Year, CHE',
+          assignedBy: 'Vyom Raturi',
+          stage: 'review', // 'drafting' | 'review' | 'eic' | 'layout' | 'print'
+          wordCount: 428,
+          deadline: '2026-10-24',
+          qualityRating: 4.8,
+          driveFiles: ['raj_soin_hall_inauguration.raw', 'vice_chancellor_address.mp3'],
+          excerpt: 'Over 2,800 freshers welcomed at Raj Soin Hall by Hon\'ble VC Prof. Prateek Sharma and council dignitaries...',
+          text: `The academic year commenced with the grand Orientation-cum-Induction Program held at Raj Soin Hall on 27th and 28th August 2026, marking the entry of over 2,800 aspiring engineers and designers into the historic DTU campus.\n\nProf. Prateek Sharma, Hon'ble Vice Chancellor, exhorted students to uphold DCE's 85-year legacy while exploring interdisciplinary research in solar physics and sustainable robotics.`
+        },
+        {
+          id: 'art-2',
+          title: 'Cosmology Club DTU Excels at IAAC: Stargazing Beyond Horizons',
+          section: 'Student News',
+          author: 'Armaan Kumar',
+          authorYear: '3rd Year, ME',
+          assignedBy: 'Vyom Raturi',
+          stage: 'review',
+          wordCount: 512,
+          deadline: '2026-10-26',
+          qualityRating: 4.9,
+          driveFiles: ['iaac_awards_certificate.pdf', 'telescope_solar_observation.tiff'],
+          excerpt: 'Cosmology Club made its mark at the International Astronomy & Astrophysics Competition with 4 gold honors...',
+          text: `Representing DTU on the global scientific stage, the Cosmology Club secured four Gold Honours at the International Astronomy and Astrophysics Competition (IAAC) 2026.\n\nThe team's presentation on chromospheric oscillations in solar flares earned distinctive accolades from the scientific jury.`
+        },
+        {
+          id: 'art-3',
+          title: 'Aarambh \'26: Cultural Awakening with Nanku, Aman Jaji & Pranjal Dahiya',
+          section: 'Society Coverage',
+          author: 'Rohini Sen',
+          authorYear: '2nd Year, ECE',
+          assignedBy: 'Vyom Raturi',
+          stage: 'drafting',
+          wordCount: 310,
+          deadline: '2026-10-28',
+          qualityRating: 4.2,
+          driveFiles: ['aarambh_crowd_oat.raw'],
+          excerpt: 'The cultural council kicked off the semester with vibrant music and dance acts at the Open Air Theatre...',
+          text: `Aarambh '26 electrified the OAT grounds over two days of unforgettable campus celebration. Featuring headline performances by Nanku, Aman Jaji, and Pranjal Dahiya, student enthusiasm reached fever pitch.`
+        },
+        {
+          id: 'art-4',
+          title: 'Dr. Ravinder Singal (Batch of 1990) Awarded Ati Utkrisht Seva Padak',
+          section: 'Alumni Spotlight',
+          author: 'Aishna Jain',
+          authorYear: '2nd Year, CHE',
+          assignedBy: 'Vyom Raturi',
+          stage: 'eic',
+          wordCount: 380,
+          deadline: '2026-10-20',
+          qualityRating: 5.0,
+          driveFiles: ['dr_singal_medal_ceremony.jpg'],
+          excerpt: 'Distinguished DCE alumnus honored for outstanding national police leadership and triathlon achievements...',
+          text: `Dr. Ravinder Singal, B.E. in Electrical & Electronics Engineering (Class of 1990), was conferred the prestigious Ati Utkrisht Seva Padak for exceptional national service.`
+        },
+        {
+          id: 'art-5',
+          title: 'The Stepping Stone: Cosmic Solitude and the Test of Saturn',
+          section: 'Columns',
+          author: 'Armaan Kumar',
+          authorYear: '3rd Year, ME',
+          assignedBy: 'Shalvi Singh',
+          stage: 'layout',
+          wordCount: 650,
+          deadline: '2026-10-18',
+          qualityRating: 4.9,
+          driveFiles: ['saturn_vector_illustration.ai', 'stepping_stone_spread_v2.indd'],
+          excerpt: 'A poetic philosophical narrative exploring planetary isolation, time dilation, and self-discovery...',
+          text: `Neptune, Earth, the Sun — his destination beckoned without losing himself amongst the ringed void. The longest test of his journey was at Saturn: a millennium of learning nothing but infinite patience.`
+        },
+        {
+          id: 'art-6',
+          title: 'The Pulse: An Unofficial Cosmic Diagnosis Archetype Quiz',
+          section: 'The Pulse',
+          author: 'Aishna Jain',
+          authorYear: '2nd Year, CHE',
+          assignedBy: 'Vyom Raturi',
+          stage: 'layout',
+          wordCount: 780,
+          deadline: '2026-10-19',
+          qualityRating: 4.7,
+          driveFiles: ['cosmic_archetype_graphic.png', 'personality_matrix_spread.indd'],
+          excerpt: 'Calibrate your responses and map your psychological traits to discover your extraterrestrial archetype...',
+          text: `Instructions: Calibrate your campus responses, tally point-values next to chosen answers, and map the sum result with the registry to discover your extraterrestrial archetype.`
+        },
+        {
+          id: 'art-7',
+          title: 'Vice Chancellor\'s Message: 85 Years of Engineering Excellence',
+          section: 'VC Address',
+          author: 'Editorial Board',
+          authorYear: 'Council',
+          assignedBy: 'Vyom Raturi',
+          stage: 'print',
+          wordCount: 450,
+          deadline: '2026-10-15',
+          qualityRating: 5.0,
+          driveFiles: ['vc_official_portrait_highres.tiff', 'vc_signed_prepress.pdf'],
+          excerpt: 'Prof. Prateek Sharma addresses students, faculty, and alumni on the university\'s historic anniversary...',
+          text: `A new academic year brings fresh energy and rhythm. Our newest students are settling into a transformative environment, while returning scholars begin another chapter of discovery.`
+        },
+        {
+          id: 'art-8',
+          title: 'Editors\' Note: The Universes We Built Within These Gates',
+          section: 'Editors Note',
+          author: 'Rishabh Sagar & Shalvi Singh',
+          authorYear: 'Editors-in-Chief',
+          assignedBy: 'Vyom Raturi',
+          stage: 'print',
+          wordCount: 520,
+          deadline: '2026-10-15',
+          qualityRating: 5.0,
+          driveFiles: ['eic_signatures_vector.svg'],
+          excerpt: 'Reflecting on the smallest worlds we inhabit that end up shaping our university lives the most...',
+          text: `Dear Readers, the smallest worlds we inhabit end up shaping us the most. The memories we chose to hold close become the pillars of our creative pursuit.`
+        }
+      ],
+
+      members: [
+        { name: 'Ujjwal Garg', dept: 'Design', year: '3rd Year B.Des', subs: 14, onTime: 96, quality: 4.9, turnaround: '12h', omi: 335, decision: 'Council Promotion' },
+        { name: 'Pratishtha Gosain', dept: 'Design', year: '2nd Year BBA', subs: 12, onTime: 98, quality: 4.9, turnaround: '14h', omi: 310, decision: 'Associate Promotion' },
+        { name: 'Saksham Jain', dept: 'Tech', year: '4th Year IT', subs: 9, onTime: 100, quality: 5.0, turnaround: '8h', omi: 315, decision: 'Senior Mentor' },
+        { name: 'Armaan Kumar', dept: 'Columnist', year: '3rd Year ME', subs: 8, onTime: 92, quality: 4.7, turnaround: '18h', omi: 280, decision: 'Associate Promotion' },
+        { name: 'Aishna Jain', dept: 'Columnist', year: '2nd Year CHE', subs: 6, onTime: 95, quality: 4.8, turnaround: '16h', omi: 245, decision: 'Associate Promotion' },
+        { name: 'Gitanjali Arora', dept: 'Design', year: '1st Year B.Des', subs: 5, onTime: 88, quality: 4.4, turnaround: '24h', omi: 180, decision: 'Retain in Core' },
+        { name: 'Rohini Sen', dept: 'Columnist', year: '2nd Year ECE', subs: 3, onTime: 67, quality: 3.8, turnaround: '42h', omi: 95, decision: 'Under Review' },
+        { name: 'Kunal Verma', dept: 'Design', year: '2nd Year COE', subs: 2, onTime: 50, quality: 3.4, turnaround: '48h', omi: 70, decision: 'Inactive Warning' }
+      ]
+    };
+
+    // ==========================================
+    // INITIALIZATION & VIEW CONTROLLER
+    // ==========================================
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      showFlowStep(1);
+      renderKanban();
+      renderStandardSections();
+      renderTracker();
+      renderVisualPairs();
+    });
+
+    function switchView(viewName) {
+      state.activeView = viewName;
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('bg-slate-800/90', 'text-slate-200');
+        btn.classList.add('text-slate-400');
+      });
+
+      const target = document.getElementById('view-' + viewName);
+      if (target) target.classList.remove('hidden');
+
+      const activeNav = document.getElementById('nav-' + viewName);
+      if (activeNav) {
+        activeNav.classList.add('bg-slate-800/90', 'text-slate-200');
+        activeNav.classList.remove('text-slate-400');
+      }
+
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // ROLE SWITCHING ENGINE
+    // ==========================================
+    function onRoleChanged(role) {
+      state.activeRole = role;
+      const avatar = document.getElementById('userAvatar');
+      const sideName = document.getElementById('sidebarUserName');
+      const sideRole = document.getElementById('sidebarUserRole');
+
+      if (role === 'eic') {
+        avatar.innerText = 'VR';
+        avatar.className = 'w-7 h-7 rounded-full bg-rose-700 flex items-center justify-center font-bold text-xs text-white border border-rose-400/30';
+        sideName.innerText = 'Vyom Raturi';
+        sideRole.innerText = 'Council Head & Lead';
+        showToast('Switched to Editor-in-Chief Mode (Full Governance)');
+      } else if (role === 'associate') {
+        avatar.innerText = 'AE';
+        avatar.className = 'w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center font-bold text-xs text-white border border-amber-400/30';
+        sideName.innerText = 'Associate Editor';
+        sideRole.innerText = 'Content Vertical Lead';
+        showToast('Switched to Associate Editor Mode (Review & Delegation)');
+      } else if (role === 'columnist') {
+        avatar.innerText = 'AJ';
+        avatar.className = 'w-7 h-7 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs text-white border border-indigo-400/30';
+        sideName.innerText = 'Aishna Jain';
+        sideRole.innerText = 'Core Columnist (2nd Yr)';
+        showToast('Switched to Columnist Mode (Writing & Drive Uploads)');
+      } else if (role === 'designer') {
+        avatar.innerText = 'UG';
+        avatar.className = 'w-7 h-7 rounded-full bg-pink-600 flex items-center justify-center font-bold text-xs text-white border border-pink-400/30';
+        sideName.innerText = 'Ujjwal Garg';
+        sideRole.innerText = 'Lead Designer (InDesign)';
+        showToast('Switched to Designer Mode (Layout & Asset Bundling)');
+      }
+    }
+
+    // ==========================================
+    // USER FLOW INTERACTIVE STEPPER (FOR BHAIYA)
+    // ==========================================
+    function showFlowStep(stepNumber) {
+      document.querySelectorAll('.flow-step-btn').forEach((btn, idx) => {
+        if (idx + 1 === stepNumber) {
+          btn.className = 'flow-step-btn text-left p-3.5 rounded-lg border-2 border-rose-500 bg-rose-500/10 transition';
+        } else {
+          btn.className = 'flow-step-btn text-left p-3.5 rounded-lg border border-slate-800 bg-slate-900 hover:border-slate-700 transition';
+        }
+      });
+
+      const container = document.getElementById('flowStepDetail');
+      const stepsData = {
+        1: {
+          title: 'Phase 01: Edition Initialization & Drive Scaffolding',
+          role: 'Executed by Editor-in-Chief / Council Head',
+          summary: 'Instead of starting 25 new WhatsApp groups, the EIC creates the edition in 1 click.',
+          bullets: [
+            'System autonomously pre-populates the 8 standard DTU Times sections (VC Message, Campus News, Student/Faculty Awards, Alumni Spotlight, Society Coverage, Columns).',
+            'Calls Google Drive API in the background to scaffold the standard 5-folder hierarchy (/Content, /Photography_RAW, /Illustrations, /InDesign_Spreads, /Print_Masters).',
+            'Synchronizes member emails with Google Drive permissions so members get automatic folder access without manual link sharing.'
+          ],
+          actionBtn: 'Simulate Edition Initialization',
+          actionFn: 'openNewEditionModal()'
+        },
+        2: {
+          title: 'Phase 02: Task Delegation & Section Allocation',
+          role: 'Executed by 9 Associate Editors across Verticals',
+          summary: 'Associates allocate tasks to 2nd & 3rd year members with clear word counts, angles, and deadlines.',
+          bullets: [
+            'Associate Editor selects a section (e.g. 03. Campus News) and assigns Aishna Jain with a 450-word target.',
+            'Cross-vertical visual tagging: Associate indicates "Need 1 raw landscape photo of Raj Soin Hall + 1 vector 85-year crest".',
+            'The system dispatches an automated notification to the columnist and links their personal dashboard.'
+          ],
+          actionBtn: 'Inspect Standard Sections Hub',
+          actionFn: 'switchView("sections")'
+        },
+        3: {
+          title: 'Phase 03: Drafting, High-Res Uploads & Drive Sync',
+          role: 'Executed by Core Columnists, Illustrators & Photographers',
+          summary: 'Members work in an uncompressed, structured environment with live word counts and direct asset streaming.',
+          bullets: [
+            'Columnist writes directly in the Submission Studio or links a live Google Doc.',
+            'Photographers drag-and-drop 40MB RAW camera files directly into the portal, streaming straight to the designated Drive subfolder.',
+            'Illustrators upload vector .ai / .png files without WhatsApp compression destroying artwork resolution.'
+          ],
+          actionBtn: 'Open Drafting Studio',
+          actionFn: 'switchView("studio")'
+        },
+        4: {
+          title: 'Phase 04: The Multi-Tier Review Gatekeeper (Associate & EIC)',
+          role: 'Executed by Associate Editors & Editors-in-Chief',
+          summary: 'Replaces endless chat thread feedback with inline comments, tracked changes, and explicit approval states.',
+          bullets: [
+            'Associate reviews the copy, leaves line comments, and either approves or requests revisions.',
+            'The portal logs the turnaround speed (hours taken to review and resubmit) straight to the Activity Tracker.',
+            'Once Associate signs off, the EIC conducts final polish (university policy, tone, sensitive checks) and locks the text for design.'
+          ],
+          actionBtn: 'Inspect Review Pipeline',
+          actionFn: 'switchView("kanban")'
+        },
+        5: {
+          title: 'Phase 05: Visual Pairing, InDesign Layout & Print Lock',
+          role: 'Executed by Designers & Faculty Advisors',
+          summary: 'Designers access locked copy and full-res linked art in one bundle, eliminating layout confusion.',
+          bullets: [
+            'Design team downloads the bundled approved text and full-res Drive links.',
+            'Designer uploads the InDesign page spread PDF back to the portal for proofing.',
+            'EIC and Faculty Advisors review the visual spread; once approved, marked "Ready for Print" and compiled into final master.'
+          ],
+          actionBtn: 'View Visuals & Asset Pairing',
+          actionFn: 'switchView("visuals")'
+        }
+      };
+
+      const d = stepsData[stepNumber];
+      container.innerHTML = `
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-white font-serif">${d.title}</h3>
+            <span class="text-[10px] bg-rose-500/20 text-rose-300 font-bold px-2.5 py-0.5 rounded border border-rose-500/30">${d.role}</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed font-medium">${d.summary}</p>
+          <ul class="space-y-1.5 text-xs text-slate-400">
+            ${d.bullets.map(b => `<li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-rose-400 shrink-0 mt-0.5"></i><span>${b}</span></li>`).join('')}
+          </ul>
+          <div class="pt-3 border-t border-slate-800 flex justify-end">
+            <button onclick="${d.actionFn}" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3.5 py-1.5 rounded flex items-center space-x-1.5 shadow">
+              <span>${d.actionBtn}</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // KANBAN BOARD RENDERING
+    // ==========================================
+    function renderKanban(filterVertical = 'all') {
+      const stages = ['drafting', 'review', 'eic', 'layout', 'print'];
+      stages.forEach(s => {
+        const el = document.getElementById('col-' + s);
+        if (el) el.innerHTML = '';
+      });
+
+      const filtered = state.articles.filter(a => {
+        if (filterVertical === 'content') return ['Campus News', 'Student News', 'Alumni Spotlight', 'Columns', 'VC Address'].includes(a.section);
+        if (filterVertical === 'visuals') return ['Visual Arts', 'The Pulse'].includes(a.section);
+        if (filterVertical === 'design') return a.stage === 'layout' || a.stage === 'print';
+        return true;
+      });
+
+      filtered.forEach(art => {
+        const card = document.createElement('div');
+        card.className = 'bg-[#131d33] hover:bg-[#17233d] p-3 rounded-lg border border-slate-800 shadow-sm cursor-pointer transition space-y-2';
+        card.onclick = () => openReviewModal(art.id);
+
+        let stageBadge = '';
+        if (art.stage === 'drafting') stageBadge = '<span class="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded">Drafting</span>';
+        if (art.stage === 'review') stageBadge = '<span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">Associate Review</span>';
+        if (art.stage === 'eic') stageBadge = '<span class="text-[9px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded">EIC Sign-off</span>';
+        if (art.stage === 'layout') stageBadge = '<span class="text-[9px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded">Layout Pairing</span>';
+        if (art.stage === 'print') stageBadge = '<span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-bold">Print Ready</span>';
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono text-rose-400 font-semibold truncate max-w-[150px]">${art.section}</span>
+            ${stageBadge}
+          </div>
+          <h4 class="text-xs font-semibold text-white leading-snug line-clamp-2">${art.title}</h4>
+          <p class="text-[11px] text-slate-400 line-clamp-2">${art.excerpt}</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span class="flex items-center space-x-1">
+              <i data-lucide="user" class="w-3 h-3 text-slate-500"></i>
+              <span class="truncate max-w-[100px]">${art.author}</span>
+            </span>
+            <span class="flex items-center space-x-1 text-slate-400 font-mono">
+              <i data-lucide="file-text" class="w-3 h-3 text-slate-500"></i>
+              <span>${art.wordCount}w</span>
+            </span>
+          </div>
+        `;
+
+        const targetCol = document.getElementById('col-' + art.stage);
+        if (targetCol) targetCol.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function filterBoard(type) {
+      document.querySelectorAll('.board-filter-btn').forEach(btn => {
+        btn.className = 'board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800 text-xs';
+      });
+      event.target.className = 'board-filter-btn px-2.5 py-1 rounded bg-rose-600 text-white font-medium text-xs';
+      renderKanban(type);
+    }
+
+    function filterKanbanBySection(sectionName) {
+      switchView('kanban');
+      showToast('Filtered pipeline for ' + sectionName);
+    }
+
+    // ==========================================
+    // STANDARD SECTIONS HUB RENDERING
+    // ==========================================
+    function renderStandardSections() {
+      const container = document.getElementById('standardSectionsGrid');
+      if (!container) return;
+
+      const sections = [
+        { num: '01', title: 'Vice Chancellor\'s Address & Dignitary Notes', desc: 'Formal opening address, university academic vision, 85-year legacy remarks.', count: 2, status: 'Locked for Print', color: 'emerald' },
+        { num: '02', title: 'Editors-in-Chief Narrative Note', desc: 'Framing note setting the literary and philosophical tone of the edition.', count: 1, status: 'Locked for Print', color: 'emerald' },
+        { num: '03', title: 'Campus & University Developments', desc: 'Infrastructure, orientation at Raj Soin Hall, MoUs, administrative updates.', count: 3, status: 'Associate Review', color: 'amber' },
+        { num: '04', title: 'Student Accolades & Technical Teams', desc: 'Cosmology club IAAC wins, Formula Student, UAS, competitive programming.', count: 2, status: 'Associate Review', color: 'amber' },
+        { num: '05', title: 'Faculty News & Premium Research Awards', desc: 'Yearly citation awards, patented research, IEEE honors, visiting scholars.', count: 2, status: 'In Drafting', color: 'slate' },
+        { num: '06', title: 'Alumni Spotlight & National Honours', desc: 'Profiles of prominent DCE/DTU alumni in civil services, startups, and research.', count: 1, status: 'EIC Polish', color: 'rose' },
+        { num: '07', title: 'Society Coverage & Campus Life', desc: 'Aarambh \'26 recap, Cultural Council reports, Engifest & Yuvaan pre-coverage.', count: 2, status: 'In Drafting', color: 'slate' },
+        { num: '08', title: 'Dignitary & Guest Interviews', desc: 'In-depth transcripts and conversations with visiting dignitaries and mentors.', count: 1, status: 'In Drafting', color: 'slate' },
+        { num: '09', title: 'Creative Writing, Columns & Poetry', desc: 'Literary essays, campus reflections, existential pieces by student columnists.', count: 3, status: 'Layout Pairing', color: 'indigo' },
+        { num: '10', title: 'The Pulse: Edition Theme Feature', desc: 'Special edition motif feature (e.g. Cosmic Archetypes / The Road Not Taken).', count: 1, status: 'Layout Pairing', color: 'indigo' }
+      ];
+
+      container.innerHTML = sections.map(s => `
+        <div class="glass-panel p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono font-bold text-rose-400">SECTION ${s.num}</span>
+              <span class="text-[10px] bg-${s.color}-500/20 text-${s.color}-300 px-2 py-0.5 rounded font-bold">${s.status}</span>
+            </div>
+            <h3 class="text-sm font-bold text-white font-serif">${s.title}</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">${s.desc}</p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+            <span class="text-slate-400 text-[11px] font-mono">${s.count} Articles Assigned</span>
+            <button onclick="filterKanbanBySection('${s.title}')" class="text-rose-400 hover:underline flex items-center space-x-1 text-[11px] font-medium">
+              <span>View Articles</span>
+              <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // MEMBER ACTIVITY TRACKER RENDERING
+    // ==========================================
+    function renderTracker(deptFilter = 'all', query = '') {
+      const tbody = document.getElementById('trackerTableBody');
+      if (!tbody) return;
+
+      const filtered = state.members.filter(m => {
+        if (deptFilter !== 'all' && m.dept !== deptFilter) return false;
+        if (query && !m.name.toLowerCase().includes(query.toLowerCase())) return false;
+        return true;
+      });
+
+      tbody.innerHTML = filtered.map(m => {
+        let badgeColor = 'bg-slate-800 text-slate-300';
+        if (m.decision.includes('Council') || m.decision.includes('Associate')) badgeColor = 'bg-rose-500/20 text-rose-300 border border-rose-500/30';
+        if (m.decision.includes('Retain')) badgeColor = 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+        if (m.decision.includes('Warning') || m.decision.includes('Under Review')) badgeColor = 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
+
+        return `
+          <tr class="hover:bg-slate-900/50 transition">
+            <td class="py-3 px-4 font-semibold text-white">
+              <div class="flex items-center space-x-2">
+                <span class="w-6 h-6 rounded bg-slate-800 flex items-center justify-center font-bold text-[10px] text-rose-400">${m.name.split(' ').map(n=>n[0]).join('')}</span>
+                <div>
+                  <div>${m.name}</div>
+                  <div class="text-[10px] text-slate-400">${m.dept} Vertical</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-slate-400 text-[11px]">${m.year}</td>
+            <td class="py-3 px-3 text-center font-mono font-bold">${m.subs}</td>
+            <td class="py-3 px-3 text-center font-mono text-emerald-400 font-bold">${m.onTime}%</td>
+            <td class="py-3 px-3 text-center font-mono text-amber-400 font-bold">${m.quality} / 5.0</td>
+            <td class="py-3 px-3 text-center font-mono text-indigo-300">${m.turnaround}</td>
+            <td class="py-3 px-3 text-center font-mono font-bold text-rose-400">${m.omi} pts</td>
+            <td class="py-3 px-4 text-right">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${badgeColor}">${m.decision}</span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterTracker(dept) {
+      document.querySelectorAll('.tracker-dept-btn').forEach(btn => {
+        btn.className = 'tracker-dept-btn px-2 py-0.5 rounded text-slate-400 hover:bg-slate-800 text-[11px]';
+      });
+      event.target.className = 'tracker-dept-btn px-2 py-0.5 rounded bg-rose-600 text-white font-medium text-[11px]';
+      renderTracker(dept);
+    }
+
+    function searchTracker(val) {
+      renderTracker('all', val);
+    }
+
+    function exportAppraisalReport() {
+      showToast('Generating Verified DTU Times Annual Appraisal Scorecard PDF...');
+      setTimeout(() => {
+        alert('Executive Appraisal Report Generated!\n\nSummary for Vyom Raturi & Council:\n- Total Active Members: 84\n- Recommended for Associate Promotion: 5 members\n- Recommended for Senior Core Retention: 42 members\n- Inactive Warnings: 3 members\n\nFile saved to: /Drive/Edition_74/Appraisal_2026_Report.pdf');
+      }, 700);
+    }
+
+    // ==========================================
+    // VISUAL PAIRS GRID RENDERING
+    // ==========================================
+    function renderVisualPairs() {
+      const container = document.getElementById('visualPairsGrid');
+      if (!container) return;
+
+      const pairs = [
+        {
+          article: 'The Stepping Stone (Columns)',
+          author: 'Armaan Kumar',
+          visualType: 'Vector Concept Art',
+          visualTitle: 'Saturn Rings & Cosmic Solitude',
+          artist: 'Pratishtha Gosain (2nd Yr BBA)',
+          status: 'Paired & Layout In Progress'
+        },
+        {
+          article: 'Raj Soin Hall Orientation (Campus News)',
+          author: 'Aishna Jain',
+          visualType: 'Event Photography (RAW)',
+          visualTitle: 'VC Address & OAT Gatherings',
+          artist: 'Gitanjali Arora & Photo Pool',
+          status: 'Curated in Drive'
+        },
+        {
+          article: 'The Pulse: Cosmic Archetypes Quiz',
+          author: 'Aishna Jain',
+          visualType: 'Interactive Diagram & Matrix',
+          visualTitle: 'Archetype Dial & Character Grid',
+          artist: 'Ujjwal Garg (B.Des)',
+          status: 'Proof Under Review'
+        }
+      ];
+
+      container.innerHTML = pairs.map(p => `
+        <div class="glass-panel p-4 rounded-xl border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between text-[10px]">
+            <span class="text-rose-400 font-bold uppercase">${p.visualType}</span>
+            <span class="bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-mono">${p.status}</span>
+          </div>
+          <div>
+            <h4 class="text-xs text-slate-400">Copy Manuscript:</h4>
+            <div class="font-bold text-white text-xs mt-0.5">${p.article}</div>
+            <div class="text-[10px] text-slate-400">Written by ${p.author}</div>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <h4 class="text-xs text-slate-400">Visual Artwork:</h4>
+            <div class="font-semibold text-rose-300 text-xs mt-0.5">${p.visualTitle}</div>
+            <div class="text-[10px] text-slate-400">Created by ${p.artist}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==========================================
+    // REVIEW MODAL / DRAWER CONTROLS
+    // ==========================================
+    function openReviewModal(articleId) {
+      state.selectedArticleId = articleId;
+      const art = state.articles.find(a => a.id === articleId);
+      if (!art) return;
+
+      document.getElementById('modalSectionBadge').innerText = art.section;
+      document.getElementById('modalTitle').innerText = art.title;
+      document.getElementById('modalAuthor').innerText = `By ${art.author} (${art.authorYear}) • ${art.wordCount} words`;
+      document.getElementById('modalArticleText').innerText = art.text;
+
+      // Pills
+      const pillsContainer = document.getElementById('modalDrivePills');
+      pillsContainer.innerHTML = art.driveFiles.map(f => `
+        <span class="inline-flex items-center space-x-1 bg-slate-900 border border-slate-700 px-2.5 py-1 rounded text-slate-300">
+          <i data-lucide="file" class="w-3 h-3 text-rose-400"></i>
+          <span>${f}</span>
+        </span>
+      `).join('');
+
+      // Advance button text
+      const btnText = document.getElementById('advanceStageBtnText');
+      if (art.stage === 'drafting') btnText.innerText = 'Submit to Associate Review';
+      else if (art.stage === 'review') btnText.innerText = 'Associate Approve & Send to EIC';
+      else if (art.stage === 'eic') btnText.innerText = 'EIC Polish & Lock for Design';
+      else if (art.stage === 'layout') btnText.innerText = 'Approve Spread Proof for Print';
+      else if (art.stage === 'print') btnText.innerText = 'Print Proof Locked';
+
+      document.getElementById('reviewModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeReviewModal() {
+      document.getElementById('reviewModal').classList.add('hidden');
+    }
+
+    function advanceStageAction() {
+      const art = state.articles.find(a => a.id === state.selectedArticleId);
+      if (!art) return;
+
+      if (art.stage === 'drafting') art.stage = 'review';
+      else if (art.stage === 'review') art.stage = 'eic';
+      else if (art.stage === 'eic') art.stage = 'layout';
+      else if (art.stage === 'layout') art.stage = 'print';
+
+      showToast(`Article advanced: ${art.title} is now in ${art.stage.toUpperCase()}`);
+      closeReviewModal();
+      renderKanban();
+    }
+
+    function requestRevisionAction() {
+      const art = state.articles.find(a => a.id === state.selectedArticleId);
+      const remark = document.getElementById('modalReviewRemarks').value;
+      if (!remark) {
+        alert('Please specify the revision remarks before requesting changes.');
+        return;
+      }
+      showToast(`Revisions requested from ${art.author}. Timestamp logged to Activity Tracker.`);
+      closeReviewModal();
+    }
+
+    // ==========================================
+    // STUDIO ACTIONS
+    // ==========================================
+    function updateWordCount(text) {
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      document.getElementById('wordCountLabel').innerText = words;
+    }
+
+    function saveDraftAction() {
+      showToast('Draft autosaved to Google Drive cloud workspace.');
+    }
+
+    function submitForReviewAction() {
+      showToast('Article submitted to Associate Editor review queue! Activity logged.');
+      switchView('kanban');
+    }
+
+    function postFeedbackComment() {
+      const input = document.getElementById('feedbackInput');
+      if (!input.value.trim()) return;
+      showToast('Review comment posted and notified to author.');
+      input.value = '';
+    }
+
+    // ==========================================
+    // EDITION INITIALIZATION MODAL
+    // ==========================================
+    function openNewEditionModal() {
+      document.getElementById('editionDropdown').classList.add('hidden');
+      document.getElementById('newEditionModal').classList.remove('hidden');
+    }
+
+    function closeNewEditionModal() {
+      document.getElementById('newEditionModal').classList.add('hidden');
+    }
+
+    function confirmInitializeEdition() {
+      const title = document.getElementById('newEditionNumber').value;
+      closeNewEditionModal();
+      showToast(`Autonomous Scaffolding in progress for ${title}...`);
+      setTimeout(() => {
+        showToast('Google Drive API created 5 department directories & 8 standard sections!');
+        document.getElementById('currentEditionLabel').innerText = title;
+      }, 1000);
+    }
+
+    // ==========================================
+    // UTILITY & TOASTS
+    // ==========================================
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'bg-[#1e293b] text-white border border-rose-500/40 text-xs px-3.5 py-2.5 rounded-lg shadow-2xl flex items-center space-x-2 transition-all transform duration-300 translate-y-2 opacity-0 pointer-events-auto';
+      toast.innerHTML = `
+        <i data-lucide="check-circle" class="w-4 h-4 text-rose-400"></i>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function openNewSubmissionModal() {
+      switchView('studio');
+      showToast('Opened Submission Studio. You can compose and link Drive media.');
+    }
+
+    function openNewSectionModal() {
+      const name = prompt('Enter title for custom section (e.g. Special Feature: Tech Teams / Yuvaan):');
+      if (name) {
+        showToast(`Custom section "${name}" added to Edition 74!`);
+      }
+    }
+
+    function toggleNotifications() {
+      showToast('No unread system alerts. All Drive webhooks operational.');
+    }
+
+    function toggleHelpModal() {
+      switchView('userflow');
+    }
+
+    function simulateDriveSync() {
+      showToast('Google Drive permissions re-synced with DTU Times user database (84 active emails).');
+    }
+
+    // Dropdown toggles
+    document.getElementById('editionSelectorBtn').onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById('editionDropdown').classList.toggle('hidden');
+    };
+
+    window.onclick = () => {
+      document.getElementById('editionDropdown').classList.add('hidden');
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Ignore heavy PDF reference publication to keep repository lightweight (<100MB limit)
+Edition 73 (1).pdf
+*.log
+.DS_Store
+Thumbs.db

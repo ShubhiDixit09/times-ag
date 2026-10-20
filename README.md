@@ -76,7 +76,7 @@ times-ag/
 
 ## 🔄 Recent Changelog & Update History
 
-- **v1.9 (Latest - Dedicated Past Editions Sidebar Banner):** Relocated the Past Editions Archive from the editorial workspace list into a prominent, dedicated feature banner card in the lower left sidebar (positioned directly above the bottom profile card). Features a subtle gradient card, book icon, edition count badge (66 issues), responsive micro-interactions, and active focus styling.
+- **v2.0 (Latest - Visible Editions Showcase & Embedded PDF Reader):** Replaced the static sidebar button with an interactive, visible Past Editions carousel displaying actual cover art thumbnails for recent editions with horizontal navigation and direct 1-click reading. Added complete `view-archive` main workspace grid with era filtering (70s, 60s, 50s, Older), real-time search, and an interactive in-portal PDF reader modal with Google Drive preview integration. Removed "66 Issues" badge completely.
 - **v1.8:** Integrated complete archive of all 66 published quarterly editions (from Edition 73 down to Edition 1 in 2009) retrieved directly via DTU Times data endpoints with cover art, release dates, search/era filtering, and direct Google Drive PDF readers.
 - **v1.7:** Cleaned up Sign-In page (`login.html`) to feature a pure credentials form (university email & password) with Google Drive synchronization, removing quick persona cards.
 - **v1.6:** Added bespoke DTU Times Sign-In page with persistent session authentication.

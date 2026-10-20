@@ -96,6 +96,11 @@
       <div id="userAvatar" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center ring-2 ring-slate-100 dark:ring-slate-800">
         AM
       </div>
+
+      <!-- Sign Out Link -->
+      <button onclick="signOut()" title="Sign Out to Login Page" class="p-2 text-slate-600 dark:text-slate-400 hover:text-rose-700 dark:hover:text-rose-400 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700/80 shadow-sm transition">
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+      </button>
     </div>
   </header>
 
@@ -631,6 +636,11 @@ The two-day orientation included interactive presentations from student societie
 
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
+      const savedRole = localStorage.getItem('dtu_active_role');
+      if (savedRole && document.getElementById('roleSelect')) {
+        document.getElementById('roleSelect').value = savedRole;
+        changeRole(savedRole);
+      }
       renderKanban();
       renderStandardSections();
       renderTeam();
@@ -872,6 +882,12 @@ The two-day orientation included interactive presentations from student societie
     function openNewSectionModal() {
       const name = prompt('Section Name:');
       if (name) showToast('Section added: ' + name);
+    }
+
+    
+    function signOut() {
+      localStorage.removeItem('dtu_is_logged_in');
+      window.location.href = 'login.html';
     }
 
     function showToast(msg) {

@@ -76,7 +76,8 @@ times-ag/
 
 ## 🔄 Recent Changelog & Update History
 
-- **v1.5 (Latest):** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
+- **v1.6 (Latest - Login Page & Authentication):** Added dedicated, bespoke Sign-In page (`login.html`) with university email authentication, password visibility toggle, 1-click persona quick-login cards, and persistent session role handoff with a header sign-out action.
+- **v1.5:** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
 - **v1.4:** Restored streamlined left sidebar with clean Light Theme by default and instant Dark Mode toggle.
 - **v1.3:** Ultra-accessible layout redesign; simplified team contribution tracker and streamlined submission workflow.
 - **v1.2:** De-cluttered top navigation bar; removed heavy corporate metrics and simplified card typography.

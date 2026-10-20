@@ -76,7 +76,8 @@ times-ag/
 
 ## 🔄 Recent Changelog & Update History
 
-- **v2.1 (Latest - Sidebar Streamlining & Direct Click-to-View UX):** Removed the oversized bottom button from the sidebar and resized the past editions shelf to be ultra-compact, ensuring all editorial options remain fully visible without scrolling. Removed repetitive "Edition" badge pills and "Read PDF" buttons from cards; entire edition cards are now directly clickable with elegant hover indicators to immediately launch the embedded viewer.
+- **v2.2 (Latest - Minimalist Sidebar Past Editions Entry):** Removed cluttered edition cover images from the left sidebar. Replaced with a sleek, compact single-row navigation button featuring a rounded purple book icon alongside "Past Editions" and subtle external navigation arrow, optimizing vertical hierarchy so all workspace and documentation links remain visible.
+- **v2.1:** Removed oversized sidebar button; eliminated repetitive "Edition" badge pills and "Read PDF" buttons from cards in favor of a direct click-to-view UX with embedded PDF modal.
 - **v2.0:** Replaced static sidebar button with an interactive, visible Past Editions carousel displaying actual cover art thumbnails for recent editions with horizontal navigation and direct 1-click reading. Added complete `view-archive` main workspace grid with era filtering (70s, 60s, 50s, Older), real-time search, and an interactive in-portal PDF reader modal with Google Drive preview integration.
 - **v1.8:** Integrated complete archive of all 66 published quarterly editions (from Edition 73 down to Edition 1 in 2009) retrieved directly via DTU Times data endpoints with cover art, release dates, search/era filtering, and direct Google Drive PDF readers.
 - **v1.7:** Cleaned up Sign-In page (`login.html`) to feature a pure credentials form (university email & password) with Google Drive synchronization, removing quick persona cards.

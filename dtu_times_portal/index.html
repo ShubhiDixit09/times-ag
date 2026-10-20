@@ -69,10 +69,13 @@
       <div class="flex items-center space-x-2 bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 shadow-sm">
         <span class="text-slate-500 dark:text-slate-400 text-[11px] font-medium">Active Role:</span>
         <select id="roleSelect" onchange="changeRole(this.value)" class="bg-transparent text-slate-900 dark:text-white font-semibold focus:outline-none cursor-pointer text-xs">
-          <option value="eic" class="bg-white dark:bg-slate-900">Arjun Mehta (Council Head / EIC)</option>
-          <option value="associate" class="bg-white dark:bg-slate-900">Kavya Verma (Associate Editor)</option>
+          <option value="eic" class="bg-white dark:bg-slate-900">Arjun Mehta (Council Head)</option>
           <option value="columnist" class="bg-white dark:bg-slate-900">Rohan Das (Columnist)</option>
-          <option value="designer" class="bg-white dark:bg-slate-900">Ishaan Sharma (Designer / Layout)</option>
+          <option value="designer" class="bg-white dark:bg-slate-900">Ishaan Sharma (Design)</option>
+          <option value="illustrator" class="bg-white dark:bg-slate-900">Ananya Sen (Illustrator)</option>
+          <option value="photographer" class="bg-white dark:bg-slate-900">Varun Kapoor (Photographer)</option>
+          <option value="videographer" class="bg-white dark:bg-slate-900">Kunal Bansal (Videography)</option>
+          <option value="developer" class="bg-white dark:bg-slate-900">Siddharth Rao (Developer)</option>
         </select>
       </div>
 
@@ -390,11 +393,14 @@ The two-day orientation included interactive presentations from student societie
           <!-- Team Table -->
           <div class="bg-white dark:bg-[#111625] border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
             <div class="p-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-              <div class="flex items-center space-x-1">
-                <button onclick="filterTeam('all')" class="team-filter-btn px-2.5 py-1 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold">All</button>
-                <button onclick="filterTeam('Content')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Content</button>
-                <button onclick="filterTeam('Design')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Design & Art</button>
-                <button onclick="filterTeam('Tech')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">Web / Tech</button>
+              <div class="flex items-center space-x-1 overflow-x-auto no-scrollbar py-0.5">
+                <button onclick="filterTeam('all')" class="team-filter-btn px-2.5 py-1 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold cursor-pointer shrink-0">All</button>
+                <button onclick="filterTeam('Columnist')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs cursor-pointer shrink-0">Columnist</button>
+                <button onclick="filterTeam('Design')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs cursor-pointer shrink-0">Design</button>
+                <button onclick="filterTeam('Illustrator')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs cursor-pointer shrink-0">Illustrator</button>
+                <button onclick="filterTeam('Photographer')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs cursor-pointer shrink-0">Photographer</button>
+                <button onclick="filterTeam('Videography')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs cursor-pointer shrink-0">Videography</button>
+                <button onclick="filterTeam('Developer')" class="team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs cursor-pointer shrink-0">Developer</button>
               </div>
               <input id="trackerSearch" oninput="searchTracker(this.value)" type="text" placeholder="Filter member name..." class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md px-3 py-1 text-xs text-slate-800 dark:text-white focus:outline-none w-48">
             </div>
@@ -716,14 +722,18 @@ The two-day orientation included interactive presentations from student societie
     ];
 
     const team = [
-      { name: "Arjun Mehta", dept: "Content", tasks: 6, status: "Active", level: "High" },
-      { name: "Rohan Das", dept: "Content", tasks: 5, status: "Active", level: "High" },
+      { name: "Rohan Das", dept: "Columnist", tasks: 6, status: "Active", level: "High" },
+      { name: "Devansh Nair", dept: "Columnist", tasks: 5, status: "Active", level: "High" },
+      { name: "Meera Iyer", dept: "Columnist", tasks: 4, status: "Active", level: "Moderate" },
+      { name: "Arjun Mehta", dept: "Columnist", tasks: 6, status: "Active", level: "High" },
       { name: "Ishaan Sharma", dept: "Design", tasks: 8, status: "Active", level: "High" },
-      { name: "Ananya Sen", dept: "Design", tasks: 7, status: "Active", level: "High" },
-      { name: "Devansh Nair", dept: "Content", tasks: 4, status: "Active", level: "Moderate" },
-      { name: "Tanvi Patel", dept: "Design", tasks: 3, status: "Active", level: "Moderate" },
-      { name: "Siddharth Rao", dept: "Tech", tasks: 4, status: "Active", level: "High" },
-      { name: "Meera Iyer", dept: "Content", tasks: 2, status: "Active", level: "Moderate" }
+      { name: "Tanvi Patel", dept: "Design", tasks: 5, status: "Active", level: "Moderate" },
+      { name: "Ananya Sen", dept: "Illustrator", tasks: 7, status: "Active", level: "High" },
+      { name: "Rhea Malhotra", dept: "Illustrator", tasks: 4, status: "Active", level: "Moderate" },
+      { name: "Varun Kapoor", dept: "Photographer", tasks: 6, status: "Active", level: "High" },
+      { name: "Kunal Bansal", dept: "Videography", tasks: 5, status: "Active", level: "High" },
+      { name: "Siddharth Rao", dept: "Developer", tasks: 7, status: "Active", level: "High" },
+      { name: "Pooja Gupta", dept: "Developer", tasks: 4, status: "Active", level: "Moderate" }
     ];
 
     let currentArticleId = null;
@@ -910,12 +920,19 @@ The two-day orientation included interactive presentations from student societie
 
     function renderTeam(deptFilter = 'all') {
       const tbody = document.getElementById('teamTableBody');
-      const filtered = team.filter(t => deptFilter === 'all' || t.dept === deptFilter);
+      const q = (document.getElementById('trackerSearch') ? document.getElementById('trackerSearch').value.toLowerCase().trim() : '');
+      const filtered = team.filter(t => {
+        const matchesDept = (deptFilter === 'all' || t.dept === deptFilter);
+        const matchesQuery = (!q || t.name.toLowerCase().includes(q) || t.dept.toLowerCase().includes(q));
+        return matchesDept && matchesQuery;
+      });
 
       tbody.innerHTML = filtered.map(t => `
         <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/40 transition">
           <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">${t.name}</td>
-          <td class="py-3 px-3 text-slate-600 dark:text-slate-400">${t.dept}</td>
+          <td class="py-3 px-3">
+            <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 font-mono">${t.dept}</span>
+          </td>
           <td class="py-3 px-3 text-center font-bold text-slate-900 dark:text-white">${t.tasks}</td>
           <td class="py-3 px-3 text-center">
             <span class="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 px-2 py-0.5 rounded">${t.status}</span>
@@ -929,9 +946,11 @@ The two-day orientation included interactive presentations from student societie
 
     function filterTeam(dept) {
       document.querySelectorAll('.team-filter-btn').forEach(btn => {
-        btn.className = 'team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs';
+        btn.className = 'team-filter-btn px-2.5 py-1 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs cursor-pointer shrink-0';
       });
-      event.target.className = 'team-filter-btn px-2.5 py-1 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold';
+      if (event && event.target) {
+        event.target.className = 'team-filter-btn px-2.5 py-1 rounded bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold cursor-pointer shrink-0';
+      }
       renderTeam(dept);
     }
 
@@ -944,9 +963,10 @@ The two-day orientation included interactive presentations from student societie
       if (!container) return;
 
       const pairs = [
-        { article: 'The Stepping Stone', visual: 'Saturn Concept Vector', artist: 'Ananya Sen' },
-        { article: 'Raj Soin Hall Induction', visual: 'Orientation Photography', artist: 'Tanvi Patel' },
-        { article: 'The Pulse: Archetype Quiz', visual: 'Personality Matrix', artist: 'Ishaan Sharma' }
+        { article: 'The Stepping Stone', type: 'Illustration', visual: 'Saturn Concept Vector', artist: 'Ananya Sen (Illustrator)' },
+        { article: 'Raj Soin Hall Induction', type: 'Photography', visual: 'Campus Orientation RAW Set', artist: 'Varun Kapoor (Photographer)' },
+        { article: 'The Pulse: Campus Matrix', type: 'Layout Design', visual: 'Personality Matrix Spread', artist: 'Ishaan Sharma (Design)' },
+        { article: 'Aarambh Cultural Fest', type: 'Videography', visual: 'OAT Live Event Recap Reel', artist: 'Kunal Bansal (Videography)' }
       ];
 
       container.innerHTML = pairs.map(p => `
@@ -1006,20 +1026,32 @@ The two-day orientation included interactive presentations from student societie
         sideName.innerText = 'Arjun Mehta';
         sideRole.innerText = 'Council Head';
         avatar.innerText = 'AM';
-      } else if (role === 'associate') {
-        sideName.innerText = 'Kavya Verma';
-        sideRole.innerText = 'Associate Editor';
-        avatar.innerText = 'KV';
       } else if (role === 'columnist') {
         sideName.innerText = 'Rohan Das';
         sideRole.innerText = 'Columnist';
         avatar.innerText = 'RD';
       } else if (role === 'designer') {
         sideName.innerText = 'Ishaan Sharma';
-        sideRole.innerText = 'Layout Designer';
+        sideRole.innerText = 'Design';
         avatar.innerText = 'IS';
+      } else if (role === 'illustrator') {
+        sideName.innerText = 'Ananya Sen';
+        sideRole.innerText = 'Illustrator';
+        avatar.innerText = 'AS';
+      } else if (role === 'photographer') {
+        sideName.innerText = 'Varun Kapoor';
+        sideRole.innerText = 'Photographer';
+        avatar.innerText = 'VK';
+      } else if (role === 'videographer') {
+        sideName.innerText = 'Kunal Bansal';
+        sideRole.innerText = 'Videography';
+        avatar.innerText = 'KB';
+      } else if (role === 'developer') {
+        sideName.innerText = 'Siddharth Rao';
+        sideRole.innerText = 'Developer';
+        avatar.innerText = 'SR';
       }
-      showToast('Switched to ' + sideName.innerText);
+      showToast('Switched to ' + sideName.innerText + ' (' + sideRole.innerText + ')');
     }
 
     function toggleDarkMode() {

@@ -11,12 +11,13 @@
 
 ### The Operational Challenge
 Every quarterly edition of **DTU Times** (60–80+ page publication) represents months of cross-functional collaboration involving 70–90+ student members across multiple verticals:
-* **Columnists & Content Writers** (Campus News, Faculty/Student Accolades, Interviews, Creative Writing)
-* **Photographers & Media Curators** (High-res event archives, campus shots, dignitary captures)
-* **Illustrators & Digital Artists** (Thematic conceptual art, custom spot illustrations, cover art)
-* **Designers & Layout Artists** (Adobe InDesign / Figma grid layout, typography, print formatting)
-* **Associate Editors & Department Heads** (Reviewers, project managers, quality controllers)
-* **Editors-in-Chief (EICs) & Faculty Advisors** (Final editorial sign-off, university administration liaison)
+* **Videography** (Event recap reels, multimedia coverage, live student interviews)
+* **Illustrator** (Thematic conceptual vector art, custom spot illustrations, cover art)
+* **Columnist** (Campus journalism, research, faculty & alumni interviews, creative prose)
+* **Design** (Adobe InDesign / Figma grid layout, print pagination, typography, pre-press proofing)
+* **Photographer** (High-resolution RAW event coverage, campus photography, portrait archives)
+* **Developer** (Edition portal engineering, archive infrastructure, web platforms)
+* **Editorial Council & Associate Editors** (Review gates, project direction, university liaison)
 
 Currently, this complex workflow is coordinated across **20 to 25 distinct WhatsApp groups** per edition. This causes severe operational friction:
 1. **Information Fragmentation:** Critical files, feedback comments, and copy revisions are lost across endless chat threads.

@@ -68,46 +68,13 @@
         </p>
       </div>
 
-      <!-- Quick 1-Click Persona Access (Ideal for Demos & Review) -->
-      <div class="space-y-2 bg-slate-50 border border-slate-200 rounded-xl p-3.5">
-        <div class="flex items-center justify-between text-[11px] font-semibold text-slate-500 px-1">
-          <span class="uppercase tracking-wider">Quick Persona Sign-In:</span>
-          <span class="text-[10px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded">1-Click</span>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <button onclick="loginAs('eic')" class="text-left bg-white hover:bg-rose-50/60 hover:border-rose-300 border border-slate-200 p-2.5 rounded-lg transition group shadow-2xs">
-            <div class="font-semibold text-slate-900 group-hover:text-rose-700">Arjun Mehta</div>
-            <div class="text-[10px] text-slate-500">Council Head (EIC)</div>
-          </button>
-          <button onclick="loginAs('associate')" class="text-left bg-white hover:bg-rose-50/60 hover:border-rose-300 border border-slate-200 p-2.5 rounded-lg transition group shadow-2xs">
-            <div class="font-semibold text-slate-900 group-hover:text-rose-700">Kavya Verma</div>
-            <div class="text-[10px] text-slate-500">Associate Editor</div>
-          </button>
-          <button onclick="loginAs('columnist')" class="text-left bg-white hover:bg-rose-50/60 hover:border-rose-300 border border-slate-200 p-2.5 rounded-lg transition group shadow-2xs">
-            <div class="font-semibold text-slate-900 group-hover:text-rose-700">Rohan Das</div>
-            <div class="text-[10px] text-slate-500">Columnist (Content)</div>
-          </button>
-          <button onclick="loginAs('designer')" class="text-left bg-white hover:bg-rose-50/60 hover:border-rose-300 border border-slate-200 p-2.5 rounded-lg transition group shadow-2xs">
-            <div class="font-semibold text-slate-900 group-hover:text-rose-700">Ishaan Sharma</div>
-            <div class="text-[10px] text-slate-500">Design & Layout Lead</div>
-          </button>
-        </div>
-      </div>
-
-      <!-- Divider -->
-      <div class="relative flex items-center justify-center">
-        <div class="border-t border-slate-200 w-full"></div>
-        <span class="bg-white px-3 text-[11px] font-medium text-slate-400 uppercase tracking-wider">or email</span>
-      </div>
-
       <!-- Traditional Credentials Form -->
       <form onsubmit="handleFormLogin(event)" class="space-y-4 text-xs">
         <div>
           <label class="block font-semibold text-slate-700 mb-1">University / DTU Times Email</label>
           <div class="relative">
             <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-            <input id="inputEmail" type="email" required placeholder="name@dtu.ac.in" value="arjun.mehta@dtu.ac.in" class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition text-xs">
+            <input id="inputEmail" type="email" required placeholder="name@dtu.ac.in" class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition text-xs">
           </div>
         </div>
 
@@ -118,7 +85,7 @@
           </div>
           <div class="relative">
             <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-            <input id="inputPassword" type="password" required value="••••••••••••" placeholder="Enter your password" class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-10 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition text-xs">
+            <input id="inputPassword" type="password" required placeholder="Enter your password" class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-10 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-rose-600 focus:bg-white transition text-xs">
             <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
               <i id="eyeIcon" data-lucide="eye" class="w-4 h-4"></i>
             </button>
@@ -164,15 +131,18 @@
   <script>
     lucide.createIcons();
 
-    function loginAs(role) {
-      localStorage.setItem('dtu_active_role', role);
-      localStorage.setItem('dtu_is_logged_in', 'true');
-      window.location.href = 'index.html';
-    }
-
     function handleFormLogin(e) {
       e.preventDefault();
-      localStorage.setItem('dtu_active_role', 'eic');
+      const email = document.getElementById('inputEmail').value.toLowerCase();
+      if (email.includes('associate') || email.includes('kavya')) {
+        localStorage.setItem('dtu_active_role', 'associate');
+      } else if (email.includes('columnist') || email.includes('writer') || email.includes('rohan')) {
+        localStorage.setItem('dtu_active_role', 'columnist');
+      } else if (email.includes('design') || email.includes('ishaan')) {
+        localStorage.setItem('dtu_active_role', 'designer');
+      } else {
+        localStorage.setItem('dtu_active_role', 'eic');
+      }
       localStorage.setItem('dtu_is_logged_in', 'true');
       window.location.href = 'index.html';
     }

@@ -76,7 +76,8 @@ times-ag/
 
 ## 🔄 Recent Changelog & Update History
 
-- **v1.6 (Latest - Login Page & Authentication):** Added dedicated, bespoke Sign-In page (`login.html`) with university email authentication, password visibility toggle, 1-click persona quick-login cards, and persistent session role handoff with a header sign-out action.
+- **v1.7 (Latest):** Cleaned up Sign-In page (`login.html`) to feature a pure credentials form (university email & password) with Google Drive synchronization, removing quick persona cards.
+- **v1.6:** Added bespoke DTU Times Sign-In page with persistent session authentication.
 - **v1.5:** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
 - **v1.4:** Restored streamlined left sidebar with clean Light Theme by default and instant Dark Mode toggle.
 - **v1.3:** Ultra-accessible layout redesign; simplified team contribution tracker and streamlined submission workflow.

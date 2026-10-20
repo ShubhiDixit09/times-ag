@@ -38,34 +38,37 @@
 <body class="bg-slate-50 text-slate-800 dark:bg-[#0b0f19] dark:text-slate-200 font-sans antialiased h-screen flex flex-col overflow-hidden select-none transition-colors duration-150">
 
   <!-- ============================================== -->
-  <!-- TOP APP BAR                                    -->
+  <!-- TOP APP BAR (Wider, Spacious & Comfortable)    -->
   <!-- ============================================== -->
-  <header class="h-13 bg-white dark:bg-[#111625] border-b border-slate-200 dark:border-slate-800 px-4 flex items-center justify-between shrink-0 z-30 shadow-sm">
-    <!-- Left: DTU Times & Edition -->
-    <div class="flex items-center space-x-3">
-      <div class="w-8 h-8 rounded-lg bg-rose-700 flex items-center justify-center font-bold text-white text-sm shadow-sm">
+  <header class="h-16 bg-white dark:bg-[#111625] border-b border-slate-200 dark:border-slate-800 px-6 flex items-center justify-between shrink-0 z-30 shadow-sm transition-all">
+    <!-- Left: DTU Times & Edition Brand -->
+    <div class="flex items-center space-x-3.5">
+      <div class="w-9 h-9 rounded-xl bg-rose-700 flex items-center justify-center font-bold text-white text-sm shadow-md shadow-rose-700/20">
         DT
       </div>
       <div>
-        <div class="flex items-center space-x-2">
-          <span class="font-bold text-sm text-slate-900 dark:text-white tracking-wide">DTU TIMES</span>
-          <span class="text-[11px] font-semibold text-rose-700 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-2 py-0.5 rounded border border-rose-200 dark:border-rose-900">EDITION 74</span>
+        <div class="flex items-center space-x-2.5">
+          <span class="font-bold text-base text-slate-900 dark:text-white tracking-wide">DTU TIMES</span>
+          <span class="text-xs font-bold text-rose-700 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-2.5 py-0.5 rounded-full border border-rose-200/80 dark:border-rose-900/60">
+            EDITION 74
+          </span>
         </div>
+        <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Winter 2026 Cycle • Official Publication</div>
       </div>
     </div>
 
-    <!-- Center: Quick Progress Indicator -->
-    <div class="hidden md:flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400">
-      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-      <span>Winter 2026 Cycle • <strong>32/50 pages</strong> drafted</span>
+    <!-- Center: Cycle Progress Status -->
+    <div class="hidden md:flex items-center space-x-2.5 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-800">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="font-medium">Production Status: <strong>32 of 50 pages</strong> drafted (64%)</span>
     </div>
 
     <!-- Right Controls: Role, Add Draft, Drive & Theme Toggle -->
-    <div class="flex items-center space-x-2.5 text-xs">
+    <div class="flex items-center space-x-3 text-xs">
       <!-- Role Switcher -->
-      <div class="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
-        <span class="text-slate-500 dark:text-slate-400 text-[11px]">Role:</span>
-        <select id="roleSelect" onchange="changeRole(this.value)" class="bg-transparent text-slate-900 dark:text-white font-medium focus:outline-none cursor-pointer text-xs">
+      <div class="flex items-center space-x-2 bg-slate-50 dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 shadow-sm">
+        <span class="text-slate-500 dark:text-slate-400 text-[11px] font-medium">Active Role:</span>
+        <select id="roleSelect" onchange="changeRole(this.value)" class="bg-transparent text-slate-900 dark:text-white font-semibold focus:outline-none cursor-pointer text-xs">
           <option value="eic" class="bg-white dark:bg-slate-900">Arjun Mehta (Council Head / EIC)</option>
           <option value="associate" class="bg-white dark:bg-slate-900">Kavya Verma (Associate Editor)</option>
           <option value="columnist" class="bg-white dark:bg-slate-900">Rohan Das (Columnist)</option>
@@ -74,23 +77,23 @@
       </div>
 
       <!-- Add New Draft Button -->
-      <button onclick="switchView('studio')" class="bg-rose-700 hover:bg-rose-800 text-white font-medium px-3 py-1.5 rounded-md flex items-center space-x-1 shadow-sm transition">
-        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+      <button onclick="switchView('studio')" class="bg-rose-700 hover:bg-rose-800 text-white font-semibold px-4 py-2 rounded-lg flex items-center space-x-1.5 shadow-sm hover:shadow transition">
+        <i data-lucide="plus" class="w-4 h-4"></i>
         <span>New Draft</span>
       </button>
 
-      <!-- Google Drive Link -->
-      <a href="https://drive.google.com" target="_blank" title="Open Google Drive folder" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 transition">
+      <!-- Google Drive Link Button -->
+      <a href="https://drive.google.com" target="_blank" title="Open Google Drive folder" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700/80 shadow-sm transition">
         <i data-lucide="folder" class="w-4 h-4 text-amber-500"></i>
       </a>
 
       <!-- Light / Dark Mode Toggle -->
-      <button onclick="toggleDarkMode()" title="Toggle Light/Dark Theme" class="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 transition">
+      <button onclick="toggleDarkMode()" title="Toggle Light/Dark Theme" class="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700/80 shadow-sm transition">
         <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
       </button>
 
       <!-- User Avatar Initials -->
-      <div id="userAvatar" class="w-7 h-7 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center">
+      <div id="userAvatar" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center ring-2 ring-slate-100 dark:ring-slate-800">
         AM
       </div>
     </div>
@@ -203,7 +206,7 @@
       <!-- ============================================== -->
       <section id="view-kanban" class="view-panel flex-1 flex flex-col overflow-hidden">
         <!-- Sub-Header Filter Bar -->
-        <div class="h-11 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0e1320] px-5 flex items-center justify-between shrink-0">
+        <div class="h-12 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0e1320] px-6 flex items-center justify-between shrink-0 shadow-xs">
           <div class="flex items-center space-x-2 text-xs">
             <span class="font-semibold text-slate-700 dark:text-slate-300">Filter:</span>
             <button onclick="filterBoard('all')" class="board-filter-btn px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm">All</button>

@@ -76,7 +76,8 @@ times-ag/
 
 ## 🔄 Recent Changelog & Update History
 
-- **v1.4 (Latest):** Restored streamlined left sidebar with clean Light Theme by default and instant Dark Mode toggle.
+- **v1.5 (Latest):** Enhanced top navigation bar with generous vertical height (64px), larger brand badge, comfortable padding, and refined status pills.
+- **v1.4:** Restored streamlined left sidebar with clean Light Theme by default and instant Dark Mode toggle.
 - **v1.3:** Ultra-accessible layout redesign; simplified team contribution tracker and streamlined submission workflow.
 - **v1.2:** De-cluttered top navigation bar; removed heavy corporate metrics and simplified card typography.
 - **v1.1:** Complete personal anonymization; replaced all specific team names across the app and docs with custom student personas.

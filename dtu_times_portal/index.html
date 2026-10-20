@@ -6,996 +6,465 @@
   <title>DTU Times — Edition Portal</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Inter & Newsreader Fonts -->
+  <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  
+
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
-          colors: {
-            app: {
-              bg: '#0a0c10',
-              sidebar: '#0e1117',
-              card: '#131720',
-              cardHover: '#181d28',
-              border: '#1f2430',
-              borderSubtle: '#181c26',
-              accent: '#e11d48',
-              accentMuted: '#9f1239'
-            }
-          },
           fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['Newsreader', 'Georgia', 'serif']
+            sans: ['Inter', 'sans-serif'],
           }
         }
       }
     }
   </script>
-  <style>
-    /* Ultra-clean custom scrollbars */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #262c3a; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #384154; }
-
-    .clean-border {
-      border: 1px solid rgba(255, 255, 255, 0.07);
-    }
-    .clean-card {
-      background: #121620;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.15s ease;
-    }
-    .clean-card:hover {
-      background: #161b27;
-      border-color: rgba(255, 255, 255, 0.12);
-    }
-  </style>
 </head>
-<body class="bg-app-bg text-slate-200 font-sans antialiased h-screen flex flex-col overflow-hidden select-none">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased">
 
   <!-- ============================================== -->
-  <!-- TOP APP BAR (Sleek, De-cluttered, Minimal)     -->
+  <!-- CLEAN & SIMPLE TOP NAVIGATION                  -->
   <!-- ============================================== -->
-  <header class="h-12 bg-app-sidebar border-b border-app-border flex items-center justify-between px-4 z-30 shrink-0">
-    <!-- Left: Brand & Edition Switcher -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 h-14 flex items-center justify-between sticky top-0 z-30">
+    <!-- Brand & Edition -->
     <div class="flex items-center space-x-3">
-      <div class="flex items-center space-x-2">
-        <div class="w-6 h-6 rounded bg-rose-600 flex items-center justify-center font-bold text-white text-[11px] tracking-wider">
-          DT
-        </div>
-        <span class="font-bold text-xs tracking-wider text-white uppercase">DTU TIMES</span>
+      <div class="w-8 h-8 rounded-md bg-rose-600 flex items-center justify-center font-bold text-white text-sm">
+        DT
       </div>
-
-      <span class="text-slate-600">/</span>
-
-      <!-- Simple Edition Dropdown Button -->
-      <div class="relative">
-        <button id="editionSelectorBtn" class="flex items-center space-x-1.5 text-xs text-slate-300 hover:text-white transition px-2 py-1 rounded hover:bg-slate-800">
-          <span id="currentEditionLabel" class="font-medium">Edition 74</span>
-          <span class="text-[10px] text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded">In Progress</span>
-          <i data-lucide="chevron-down" class="w-3 h-3 text-slate-500"></i>
-        </button>
-
-        <!-- Dropdown Menu -->
-        <div id="editionDropdown" class="hidden absolute left-0 mt-1.5 w-56 bg-app-sidebar border border-app-border rounded-lg shadow-xl py-1 z-50 text-xs">
-          <div class="px-3 py-1.5 text-[10px] font-semibold uppercase text-slate-500 tracking-wider">Select Edition</div>
-          <button onclick="switchEdition('74')" class="w-full text-left px-3 py-2 hover:bg-slate-800 flex items-center justify-between text-slate-200">
-            <div>
-              <div class="font-medium text-rose-400">Edition 74 (Winter 2026)</div>
-              <div class="text-[10px] text-slate-500">Active Editorial Cycle</div>
-            </div>
-            <i data-lucide="check" class="w-3.5 h-3.5 text-rose-400"></i>
-          </button>
-          <button onclick="switchEdition('73')" class="w-full text-left px-3 py-2 hover:bg-slate-800 text-slate-400 hover:text-slate-200">
-            <div>
-              <div>Edition 73 (Aug-Oct 2026)</div>
-              <div class="text-[10px] text-slate-500">Published Archive</div>
-            </div>
-          </button>
-          <div class="border-t border-app-border my-1"></div>
-          <button onclick="openNewEditionModal()" class="w-full text-left px-3 py-1.5 text-rose-400 hover:bg-slate-800 flex items-center space-x-1.5">
-            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-            <span>Initialize New Edition</span>
-          </button>
-        </div>
+      <div>
+        <div class="font-bold text-sm text-white tracking-wide">DTU TIMES</div>
+        <div class="text-[11px] text-slate-400">Edition 74 • Winter 2026</div>
       </div>
     </div>
 
-    <!-- Center: Clean Quick Status -->
-    <div class="hidden md:flex items-center space-x-2 text-xs text-slate-400">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-      <span>Cycle 74: <strong>32/50 pages</strong> drafted</span>
-    </div>
-
-    <!-- Right: Role Switcher & User Profile -->
-    <div class="flex items-center space-x-2.5">
-      <!-- Minimalist Role Selector -->
-      <div class="flex items-center space-x-1.5 text-xs text-slate-400 bg-app-bg px-2 py-1 rounded border border-app-border">
-        <span class="text-[10px] uppercase font-semibold text-slate-500">Role:</span>
-        <select id="roleSelector" onchange="onRoleChanged(this.value)" class="bg-transparent text-slate-200 font-medium focus:outline-none cursor-pointer">
-          <option value="eic" class="bg-slate-900 text-white">Arjun Mehta (Council Head / EIC)</option>
-          <option value="associate" class="bg-slate-900 text-white">Kavya Verma (Associate Editor)</option>
-          <option value="columnist" class="bg-slate-900 text-white">Rohan Das (Columnist)</option>
-          <option value="designer" class="bg-slate-900 text-white">Ishaan Sharma (Designer / Layout)</option>
-        </select>
-      </div>
-
-      <!-- Clean New Button -->
-      <button onclick="openNewSubmissionModal()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-medium px-2.5 py-1 rounded flex items-center space-x-1 transition shadow-sm">
-        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-        <span>New Draft</span>
+    <!-- Simple 3 Main Tabs (Center) -->
+    <nav class="flex items-center space-x-1 bg-slate-950/60 p-1 rounded-lg border border-slate-800">
+      <button onclick="switchTab('articles')" id="tab-btn-articles" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold bg-rose-600 text-white transition">
+        Articles
       </button>
+      <button onclick="switchTab('submit')" id="tab-btn-submit" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+        Submit Article
+      </button>
+      <button onclick="switchTab('team')" id="tab-btn-team" class="tab-btn px-4 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+        Team Activity
+      </button>
+    </nav>
 
-      <!-- Minimal Avatar -->
-      <div class="pl-1">
-        <div id="userAvatar" class="w-6 h-6 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] font-semibold text-slate-300">
-          AM
-        </div>
+    <!-- Role Switcher & Drive Link -->
+    <div class="flex items-center space-x-3 text-xs">
+      <a href="https://drive.google.com" target="_blank" class="hidden sm:flex items-center space-x-1.5 text-slate-400 hover:text-slate-200 bg-slate-800/80 px-2.5 py-1.5 rounded-md border border-slate-700">
+        <i data-lucide="folder" class="w-3.5 h-3.5 text-amber-400"></i>
+        <span>Google Drive</span>
+      </a>
+
+      <div class="flex items-center space-x-1.5 bg-slate-800/80 px-2.5 py-1.5 rounded-md border border-slate-700">
+        <span class="text-slate-400 text-[11px]">Role:</span>
+        <select id="roleSelect" onchange="changeRole(this.value)" class="bg-transparent text-white font-medium focus:outline-none cursor-pointer text-xs">
+          <option value="lead" class="bg-slate-900">Arjun (Senior / Editor)</option>
+          <option value="member" class="bg-slate-900">Rohan (Writer / Member)</option>
+        </select>
       </div>
     </div>
   </header>
 
   <!-- ============================================== -->
-  <!-- MAIN WORKSPACE                                 -->
+  <!-- MAIN CONTENT CONTAINER                         -->
   <!-- ============================================== -->
-  <div class="flex-1 flex overflow-hidden">
+  <main class="flex-1 max-w-5xl w-full mx-auto p-6">
 
-    <!-- LEFT SIDEBAR (Streamlined & Clean) -->
-    <aside class="w-56 bg-app-sidebar border-r border-app-border flex flex-col justify-between shrink-0 p-3">
+    <!-- ============================================== -->
+    <!-- TAB 1: ARTICLES LIST                           -->
+    <!-- ============================================== -->
+    <div id="tab-articles" class="tab-content space-y-4">
       
-      <!-- Upper Navigation Links -->
-      <div class="space-y-4 overflow-y-auto">
-
-        <!-- Navigation Group -->
-        <div class="space-y-1">
-          <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 px-2 mb-1">Workspace</div>
-
-          <button onclick="switchView('kanban')" id="nav-kanban" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-medium bg-slate-800/80 text-white transition">
-            <div class="flex items-center space-x-2">
-              <i data-lucide="layout-grid" class="w-4 h-4 text-rose-400"></i>
-              <span>Pipeline</span>
-            </div>
-            <span class="text-[10px] text-slate-400">14</span>
-          </button>
-
-          <button onclick="switchView('sections')" id="nav-sections" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
-            <div class="flex items-center space-x-2">
-              <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i>
-              <span>Sections</span>
-            </div>
-            <span class="text-[10px] text-slate-500">10</span>
-          </button>
-
-          <button onclick="switchView('studio')" id="nav-studio" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
-            <div class="flex items-center space-x-2">
-              <i data-lucide="pen-line" class="w-4 h-4 text-slate-400"></i>
-              <span>Draft Studio</span>
-            </div>
-          </button>
-
-          <button onclick="switchView('visuals')" id="nav-visuals" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
-            <div class="flex items-center space-x-2">
-              <i data-lucide="image" class="w-4 h-4 text-slate-400"></i>
-              <span>Visual Assets</span>
-            </div>
-            <span class="text-[10px] text-slate-500">8</span>
-          </button>
-        </div>
-
-        <!-- Management Group -->
-        <div class="space-y-1">
-          <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 px-2 mb-1">Operations</div>
-
-          <button onclick="switchView('tracker')" id="nav-tracker" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
-            <div class="flex items-center space-x-2">
-              <i data-lucide="bar-chart-2" class="w-4 h-4 text-emerald-400"></i>
-              <span>Activity Tracker</span>
-            </div>
-          </button>
-
-          <button onclick="switchView('drive')" id="nav-drive" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
-            <div class="flex items-center space-x-2">
-              <i data-lucide="hard-drive" class="w-4 h-4 text-blue-400"></i>
-              <span>Drive Storage</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- Overview Guide -->
-        <div class="space-y-1 pt-1">
-          <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 px-2 mb-1">Architecture</div>
-
-          <button onclick="switchView('userflow')" id="nav-userflow" class="nav-item w-full flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition">
-            <div class="flex items-center space-x-2">
-              <i data-lucide="git-branch" class="w-4 h-4 text-indigo-400"></i>
-              <span>User Flow Guide</span>
-            </div>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- Clean Bottom User Card -->
-      <div class="pt-2 border-t border-app-border flex items-center justify-between text-xs">
-        <div class="truncate">
-          <div id="sidebarUserName" class="font-medium text-slate-300 truncate">Arjun Mehta</div>
-          <div id="sidebarUserRole" class="text-[10px] text-slate-500 truncate">Council Head</div>
-        </div>
-        <button onclick="switchView('userflow')" title="Architecture Walkthrough" class="text-slate-500 hover:text-slate-300 p-1">
-          <i data-lucide="info" class="w-4 h-4"></i>
-        </button>
-      </div>
-
-    </aside>
-
-    <!-- CENTER WORKSPACE -->
-    <main class="flex-1 bg-app-bg flex flex-col overflow-hidden relative">
-
-      <!-- ============================================== -->
-      <!-- VIEW 1: KANBAN PIPELINE (PRIMARY VIEW)         -->
-      <!-- ============================================== -->
-      <section id="view-kanban" class="view-panel flex-1 flex flex-col overflow-hidden">
-        <!-- Minimal Sub-Header -->
-        <div class="h-10 border-b border-app-border bg-app-sidebar/60 px-4 flex items-center justify-between shrink-0">
-          <!-- Filters -->
-          <div class="flex items-center space-x-1 text-xs">
-            <button onclick="filterBoard('all')" class="board-filter-btn px-2.5 py-1 rounded text-white bg-slate-800 font-medium">All</button>
-            <button onclick="filterBoard('content')" class="board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:text-slate-200">Articles</button>
-            <button onclick="filterBoard('visuals')" class="board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:text-slate-200">Visuals</button>
-            <button onclick="filterBoard('design')" class="board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:text-slate-200">Layout</button>
-          </div>
-
-          <div class="flex items-center space-x-3 text-xs text-slate-500">
-            <span>14 items</span>
-            <button onclick="openNewSubmissionModal()" class="text-slate-400 hover:text-white flex items-center space-x-1">
-              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-              <span>Add</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 5 Clean Columns -->
-        <div class="flex-1 overflow-x-auto p-4 flex space-x-3 bg-app-bg">
-
-          <!-- 01. DRAFTING -->
-          <div class="w-72 shrink-0 flex flex-col bg-[#0e1118] rounded-lg border border-app-border max-h-full">
-            <div class="px-3 py-2 border-b border-app-border flex items-center justify-between text-xs">
-              <span class="font-medium text-slate-300">Drafting</span>
-              <span class="text-[10px] text-slate-500 font-mono">3</span>
-            </div>
-            <div id="col-drafting" class="p-2 space-y-2 overflow-y-auto flex-1"></div>
-          </div>
-
-          <!-- 02. ASSOCIATE REVIEW -->
-          <div class="w-72 shrink-0 flex flex-col bg-[#0e1118] rounded-lg border border-app-border max-h-full">
-            <div class="px-3 py-2 border-b border-app-border flex items-center justify-between text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                <span class="font-medium text-slate-300">Associate Review</span>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">4</span>
-            </div>
-            <div id="col-review" class="p-2 space-y-2 overflow-y-auto flex-1"></div>
-          </div>
-
-          <!-- 03. EIC POLISH -->
-          <div class="w-72 shrink-0 flex flex-col bg-[#0e1118] rounded-lg border border-app-border max-h-full">
-            <div class="px-3 py-2 border-b border-app-border flex items-center justify-between text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
-                <span class="font-medium text-slate-300">Council Polish</span>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">2</span>
-            </div>
-            <div id="col-eic" class="p-2 space-y-2 overflow-y-auto flex-1"></div>
-          </div>
-
-          <!-- 04. LAYOUT & ART -->
-          <div class="w-72 shrink-0 flex flex-col bg-[#0e1118] rounded-lg border border-app-border max-h-full">
-            <div class="px-3 py-2 border-b border-app-border flex items-center justify-between text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-                <span class="font-medium text-slate-300">Design Layout</span>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">3</span>
-            </div>
-            <div id="col-layout" class="p-2 space-y-2 overflow-y-auto flex-1"></div>
-          </div>
-
-          <!-- 05. PRINT READY -->
-          <div class="w-72 shrink-0 flex flex-col bg-[#0e1118] rounded-lg border border-app-border max-h-full">
-            <div class="px-3 py-2 border-b border-app-border flex items-center justify-between text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                <span class="font-medium text-slate-300">Print Ready</span>
-              </div>
-              <span class="text-[10px] text-slate-500 font-mono">2</span>
-            </div>
-            <div id="col-print" class="p-2 space-y-2 overflow-y-auto flex-1"></div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ============================================== -->
-      <!-- VIEW 2: SECTIONS HUB                           -->
-      <!-- ============================================== -->
-      <section id="view-sections" class="view-panel flex-1 overflow-y-auto p-6 hidden">
-        <div class="max-w-4xl mx-auto space-y-5">
-          <div class="flex items-center justify-between pb-3 border-b border-app-border">
-            <div>
-              <h2 class="text-base font-semibold text-white">Edition Sections</h2>
-              <p class="text-xs text-slate-400 mt-0.5">Recurring templates generated automatically for Edition 74.</p>
-            </div>
-            <button onclick="openNewSectionModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded border border-slate-700 transition">
-              + Custom Section
-            </button>
-          </div>
-
-          <div id="standardSectionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-        </div>
-      </section>
-
-      <!-- ============================================== -->
-      <!-- VIEW 3: DRAFT STUDIO                           -->
-      <!-- ============================================== -->
-      <section id="view-studio" class="view-panel flex-1 flex flex-col overflow-hidden hidden">
-        <div class="h-10 border-b border-app-border bg-app-sidebar/60 px-4 flex items-center justify-between shrink-0 text-xs">
-          <span class="font-medium text-slate-300 truncate" id="editorDocTitle">03. Campus News — Induction Program at Raj Soin Hall</span>
-          <div class="flex items-center space-x-2">
-            <span class="text-slate-500 text-[11px]"><span id="wordCountLabel" class="text-slate-300 font-mono">428</span> words</span>
-            <button onclick="saveDraftAction()" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">Save</button>
-            <button onclick="submitForReviewAction()" class="px-2.5 py-1 rounded bg-rose-600 text-white hover:bg-rose-500">Submit</button>
-          </div>
-        </div>
-
-        <div class="flex-1 flex overflow-hidden">
-          <div class="flex-1 p-6 overflow-y-auto flex justify-center">
-            <div class="w-full max-w-2xl space-y-3">
-              <input id="studioTitleInput" type="text" value="Orientation-cum-Induction Program at Raj Soin Hall: Batch of 2026-30" class="w-full bg-transparent text-lg font-semibold text-white focus:outline-none">
-              <div class="text-[11px] text-slate-500 pb-3 border-b border-app-border">Author: Rohan Das (2nd Yr) • Assigned by: Kavya Verma</div>
-              <textarea id="studioContentTextarea" oninput="updateWordCount(this.value)" rows="16" class="w-full bg-transparent text-xs leading-relaxed text-slate-300 focus:outline-none resize-none font-sans">The academic year commenced with the grand Orientation-cum-Induction Program held at Raj Soin Hall on 27th and 28th August 2026, marking the entry of over 2,800 aspiring engineers and designers into the historic DTU campus. The ceremony was graced by the esteemed presence of Prof. Prateek Sharma, Hon'ble Vice Chancellor, DTU, alongside Prof. Sudhir G Warkar, Dean of Academic UG, and prominent alumni keynote speakers.
-
-In his inaugural address, Prof. Prateek Sharma emphasized the university's 85-year legacy of academic distinction, tracing back to DCE's inception at Kashmere Gate. He exhorted the freshers to cultivate a spirit of interdisciplinary innovation, highlighting recent achievements such as premier citation honors and the expansion of renewable energy curricula headed by Prof. M. Rizwan.
-
-The two-day orientation included interactive presentations from student societies. Team DTU Times showcased its journey through Edition 73, encouraging incoming students to chronicle campus milestones.</textarea>
-            </div>
-          </div>
-
-          <!-- Minimal Right Sidebar for Feedback -->
-          <div class="w-64 border-l border-app-border bg-app-sidebar p-3.5 space-y-4 overflow-y-auto text-xs shrink-0">
-            <div>
-              <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-2">Drive Assets</div>
-              <div class="bg-app-bg p-2 rounded border border-app-border text-[11px]">
-                <div class="text-slate-300 font-medium truncate">raj_soin_hall_inauguration.raw</div>
-                <div class="text-[10px] text-emerald-400 mt-0.5">Synced in Google Drive</div>
-              </div>
-            </div>
-
-            <div>
-              <div class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-2">Editor Notes</div>
-              <div class="bg-app-bg p-2 rounded border border-app-border text-[11px] text-slate-400 leading-relaxed">
-                <span class="text-rose-400 font-medium">Kavya (Associate):</span> Please verify Dean Academic UG name and fresher count.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================== -->
-      <!-- VIEW 4: ACTIVITY TRACKER                       -->
-      <!-- ============================================== -->
-      <section id="view-tracker" class="view-panel flex-1 overflow-y-auto p-6 hidden">
-        <div class="max-w-4xl mx-auto space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-app-border">
-            <div>
-              <h2 class="text-base font-semibold text-white">Member Activity & Telemetry</h2>
-              <p class="text-xs text-slate-400 mt-0.5">Verified submission records replacing subjective Google Forms for annual reviews.</p>
-            </div>
-            <button onclick="exportAppraisalReport()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded transition">
-              Export Report
-            </button>
-          </div>
-
-          <!-- Table -->
-          <div class="clean-border rounded-lg overflow-hidden bg-app-sidebar">
-            <div class="p-2.5 border-b border-app-border flex items-center justify-between text-xs">
-              <div class="flex items-center space-x-1">
-                <button onclick="filterTracker('all')" class="tracker-dept-btn px-2 py-0.5 rounded bg-slate-800 text-white text-[11px]">All</button>
-                <button onclick="filterTracker('Columnist')" class="tracker-dept-btn px-2 py-0.5 rounded text-slate-400 hover:text-white text-[11px]">Writers</button>
-                <button onclick="filterTracker('Design')" class="tracker-dept-btn px-2 py-0.5 rounded text-slate-400 hover:text-white text-[11px]">Design/Art</button>
-              </div>
-              <input id="trackerSearch" oninput="searchTracker(this.value)" type="text" placeholder="Filter member..." class="bg-app-bg border border-app-border rounded px-2 py-0.5 text-xs text-white focus:outline-none w-44">
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs">
-                <thead class="text-slate-500 uppercase text-[10px] font-medium border-b border-app-border bg-app-bg/50">
-                  <tr>
-                    <th class="py-2 px-3">Member</th>
-                    <th class="py-2 px-2 text-center">Submissions</th>
-                    <th class="py-2 px-2 text-center">On-Time</th>
-                    <th class="py-2 px-2 text-center">Rating</th>
-                    <th class="py-2 px-2 text-center">Turnaround</th>
-                    <th class="py-2 px-2 text-center">Merit Index</th>
-                    <th class="py-2 px-3 text-right">Recommendation</th>
-                  </tr>
-                </thead>
-                <tbody id="trackerTableBody" class="divide-y divide-app-border text-slate-300"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================== -->
-      <!-- VIEW 5: DRIVE STORAGE                          -->
-      <!-- ============================================== -->
-      <section id="view-drive" class="view-panel flex-1 overflow-y-auto p-6 hidden">
-        <div class="max-w-3xl mx-auto space-y-4">
-          <div class="pb-3 border-b border-app-border">
-            <h2 class="text-base font-semibold text-white">Google Drive Folder Scaffolding</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Automated cloud storage tree preventing local database bloat.</p>
-          </div>
-
-          <div class="clean-border rounded-lg p-4 bg-app-sidebar space-y-2 text-xs font-mono">
-            <div class="text-rose-400 font-semibold">📁 /DTU_Times_Editions_Drive/Edition_74_Winter_2026/</div>
-            <div class="pl-4 space-y-1 text-slate-400 text-[11px]">
-              <div>├── 📁 01_Content_Manuscripts/ <span class="text-slate-500">(14 files)</span></div>
-              <div>├── 📁 02_Photography_Raw/ <span class="text-slate-500">(86 RAW images, 1.8 GB)</span></div>
-              <div>├── 📁 03_Illustrations_Vector/ <span class="text-slate-500">(18 .ai & .png files)</span></div>
-              <div>├── 📁 04_Design_Spreads_InDesign/ <span class="text-slate-500">(6 spreads)</span></div>
-              <div>└── 📁 05_Print_Masters/ <span class="text-slate-500">(Final pre-press)</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================== -->
-      <!-- VIEW 6: VISUAL ASSETS                          -->
-      <!-- ============================================== -->
-      <section id="view-visuals" class="view-panel flex-1 overflow-y-auto p-6 hidden">
-        <div class="max-w-4xl mx-auto space-y-4">
-          <div class="pb-3 border-b border-app-border">
-            <h2 class="text-base font-semibold text-white">Visual & Asset Pairing</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Matching copy manuscripts with illustrations and photography.</p>
-          </div>
-          <div id="visualPairsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
-        </div>
-      </section>
-
-      <!-- ============================================== -->
-      <!-- VIEW 7: USER FLOW GUIDE (ARCHITECTURE)         -->
-      <!-- ============================================== -->
-      <section id="view-userflow" class="view-panel flex-1 overflow-y-auto p-6 hidden">
-        <div class="max-w-4xl mx-auto space-y-5">
-          <div class="pb-3 border-b border-app-border">
-            <h2 class="text-lg font-semibold text-white">Edition Portal Workflow & User Journey</h2>
-            <p class="text-xs text-slate-400 mt-1">Replacing 20–25 fragmented WhatsApp groups with a single structured editorial pipeline.</p>
-          </div>
-
-          <!-- Comparison Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-            <div class="clean-border rounded-lg p-3.5 bg-red-950/10 border-red-900/30">
-              <div class="font-medium text-rose-400 mb-1.5">Previous WhatsApp Setup (25 Groups)</div>
-              <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
-                <li>Endless chat threads with lost deadlines</li>
-                <li>WhatsApp image compression ruining high-res print assets</li>
-                <li>Designers unsure which text version is approved</li>
-                <li>Subjective year-end promotions via unverified forms</li>
-              </ul>
-            </div>
-
-            <div class="clean-border rounded-lg p-3.5 bg-emerald-950/10 border-emerald-900/30">
-              <div class="font-medium text-emerald-400 mb-1.5">New Edition Portal Architecture</div>
-              <ul class="space-y-1 text-slate-400 text-[11px] list-disc list-inside">
-                <li>Single source of truth with automated section scaffolding</li>
-                <li>Direct Google Drive integration for RAW photos & vector art</li>
-                <li>Strict 5-stage editorial review gates</li>
-                <li>Concrete member activity telemetry for annual appraisals</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Step Progression -->
-          <div class="clean-border rounded-lg p-4 bg-app-sidebar space-y-3">
-            <div class="text-xs font-semibold text-slate-300">5-Phase Editorial Lifecycle</div>
-            <div class="grid grid-cols-5 gap-2 text-center text-xs">
-              <div class="p-2 rounded bg-app-bg border border-app-border">
-                <div class="text-[10px] text-slate-500 font-mono">01</div>
-                <div class="font-medium text-slate-300 text-[11px] mt-1">Init & Drive</div>
-              </div>
-              <div class="p-2 rounded bg-app-bg border border-app-border">
-                <div class="text-[10px] text-slate-500 font-mono">02</div>
-                <div class="font-medium text-slate-300 text-[11px] mt-1">Assignment</div>
-              </div>
-              <div class="p-2 rounded bg-app-bg border border-app-border">
-                <div class="text-[10px] text-slate-500 font-mono">03</div>
-                <div class="font-medium text-slate-300 text-[11px] mt-1">Drafting</div>
-              </div>
-              <div class="p-2 rounded bg-app-bg border border-app-border">
-                <div class="text-[10px] text-slate-500 font-mono">04</div>
-                <div class="font-medium text-slate-300 text-[11px] mt-1">Review Gate</div>
-              </div>
-              <div class="p-2 rounded bg-app-bg border border-app-border">
-                <div class="text-[10px] text-slate-500 font-mono">05</div>
-                <div class="font-medium text-slate-300 text-[11px] mt-1">Layout & Print</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- MODAL: REVIEW DRAWER                           -->
-  <!-- ============================================== -->
-  <div id="reviewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-    <div class="bg-app-sidebar border border-app-border w-full max-w-xl rounded-lg shadow-2xl overflow-hidden flex flex-col text-xs">
-      <div class="p-3.5 border-b border-app-border flex items-center justify-between">
+      <!-- Filter bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
         <div>
-          <span id="modalSectionBadge" class="text-[10px] text-rose-400 font-medium">Campus News</span>
-          <h3 id="modalTitle" class="text-sm font-semibold text-white mt-0.5">Induction Program at Raj Soin Hall</h3>
-          <p id="modalAuthor" class="text-[11px] text-slate-400">By Rohan Das (2nd Year)</p>
-        </div>
-        <button onclick="closeReviewModal()" class="text-slate-500 hover:text-white">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
-
-      <div class="p-4 space-y-3 max-h-96 overflow-y-auto">
-        <div>
-          <label class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Manuscript</label>
-          <div id="modalArticleText" class="mt-1 bg-app-bg p-3 rounded border border-app-border text-[11px] text-slate-300 leading-relaxed font-sans max-h-40 overflow-y-auto"></div>
+          <h1 class="text-lg font-bold text-white">Edition 74 Articles</h1>
+          <p class="text-xs text-slate-400">Track and review content for the upcoming magazine.</p>
         </div>
 
-        <div>
-          <label class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Drive Files</label>
-          <div id="modalDrivePills" class="flex flex-wrap gap-1.5 mt-1 text-[11px]"></div>
-        </div>
-
-        <div>
-          <label class="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Review Notes</label>
-          <textarea id="modalReviewRemarks" rows="2" placeholder="Leave review feedback..." class="mt-1 w-full bg-app-bg border border-app-border rounded p-2 text-xs text-white focus:outline-none"></textarea>
-        </div>
-      </div>
-
-      <div class="p-3 border-t border-app-border bg-app-bg flex items-center justify-between">
-        <button onclick="requestRevisionAction()" class="text-amber-400 hover:underline">Request Changes</button>
         <div class="flex items-center space-x-2">
-          <button onclick="closeReviewModal()" class="px-2.5 py-1 text-slate-400 hover:text-white">Cancel</button>
-          <button onclick="advanceStageAction()" class="bg-rose-600 hover:bg-rose-500 text-white font-medium px-3 py-1 rounded">
-            <span id="advanceStageBtnText">Advance Stage</span>
+          <!-- Status Filter -->
+          <select id="statusFilter" onchange="renderArticles()" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-md px-3 py-1.5 focus:outline-none">
+            <option value="all">All Stages</option>
+            <option value="Drafting">In Drafting</option>
+            <option value="Review">Needs Review</option>
+            <option value="Layout">In Layout</option>
+            <option value="Ready">Ready for Print</option>
+          </select>
+
+          <button onclick="switchTab('submit')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 py-1.5 rounded-md flex items-center space-x-1 transition shadow-sm">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add Article</span>
           </button>
         </div>
+      </div>
+
+      <!-- Articles Grid -->
+      <div id="articlesList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB 2: SUBMIT ARTICLE FORM                     -->
+    <!-- ============================================== -->
+    <div id="tab-submit" class="tab-content hidden max-w-2xl mx-auto space-y-4">
+      <div class="pb-2 border-b border-slate-800">
+        <h1 class="text-lg font-bold text-white">Submit New Article or Media</h1>
+        <p class="text-xs text-slate-400">Team members can write copy or link Google Docs and Drive files here.</p>
+      </div>
+
+      <form onsubmit="handleArticleSubmit(event)" class="space-y-4 bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Article Title</label>
+          <input id="inputTitle" type="text" required placeholder="e.g. Orientation Ceremony at Raj Soin Hall" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Magazine Section</label>
+            <select id="inputSection" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+              <option value="Campus News">Campus & University News</option>
+              <option value="Student Achievements">Student Accolades & Tech Teams</option>
+              <option value="Faculty Accolades">Faculty News & Research</option>
+              <option value="Alumni Spotlight">Alumni Spotlight</option>
+              <option value="Societies & Fests">Societies & Cultural Events</option>
+              <option value="Interviews">Dignitary Interviews</option>
+              <option value="Creative Columns">Creative Columns & Poetry</option>
+              <option value="The Pulse">The Pulse (Theme Feature)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Contributor Name</label>
+            <input id="inputAuthor" type="text" required placeholder="e.g. Rohan Das" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Article Content (or paste draft)</label>
+          <textarea id="inputText" rows="6" placeholder="Type or paste the draft here..." class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 leading-relaxed"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Google Drive or Doc Link (Optional)</label>
+          <input id="inputDriveLink" type="url" placeholder="https://docs.google.com/document/d/..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500">
+          <p class="text-[11px] text-slate-500 mt-1">If photos or illustrations are attached, add the Drive folder link here.</p>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end space-x-2">
+          <button type="button" onclick="switchTab('articles')" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Cancel</button>
+          <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-5 py-2 rounded-lg transition shadow-sm">Submit to Editors</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB 3: TEAM ACTIVITY TRACKER (Clean & Friendly)-->
+    <!-- ============================================== -->
+    <div id="tab-team" class="tab-content hidden space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-800">
+        <div>
+          <h1 class="text-lg font-bold text-white">Team Activity & Contributions</h1>
+          <p class="text-xs text-slate-400">See who has contributed to this edition so seniors can easily review performance.</p>
+        </div>
+
+        <!-- Department Filter -->
+        <div class="flex items-center space-x-1 text-xs">
+          <button onclick="filterTeam('all')" class="team-filter-btn px-3 py-1 rounded bg-slate-800 text-white font-medium">All</button>
+          <button onclick="filterTeam('Content')" class="team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white">Content</button>
+          <button onclick="filterTeam('Design')" class="team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white">Design & Art</button>
+          <button onclick="filterTeam('Tech')" class="team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white">Web / Tech</button>
+        </div>
+      </div>
+
+      <!-- Simple, Readable Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950 text-slate-400 uppercase text-[10px] font-semibold border-b border-slate-800">
+            <tr>
+              <th class="py-3 px-4">Member Name</th>
+              <th class="py-3 px-3">Vertical</th>
+              <th class="py-3 px-3 text-center">Articles / Tasks</th>
+              <th class="py-3 px-3 text-center">Status</th>
+              <th class="py-3 px-4 text-right">Activity Level</th>
+            </tr>
+          </thead>
+          <tbody id="teamTableBody" class="divide-y divide-slate-800/60 text-slate-200">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================== -->
+  <!-- MODAL: ARTICLE DETAILS & REVIEW                -->
+  <!-- ============================================== -->
+  <div id="viewArticleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-xl shadow-2xl p-5 space-y-4">
+      <div class="flex items-start justify-between">
+        <div>
+          <span id="modalArticleSection" class="text-[10px] font-semibold text-rose-400 uppercase tracking-wider">Campus News</span>
+          <h2 id="modalArticleTitle" class="text-base font-bold text-white mt-0.5 leading-snug">Article Title</h2>
+          <p id="modalArticleAuthor" class="text-xs text-slate-400 mt-0.5">By Author</p>
+        </div>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Article content -->
+      <div class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 text-xs text-slate-300 leading-relaxed max-h-52 overflow-y-auto">
+        <p id="modalArticleBody"></p>
+      </div>
+
+      <!-- Status control -->
+      <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
+        <div class="flex items-center space-x-2">
+          <span class="text-slate-400">Current Status:</span>
+          <select id="modalStatusSelect" onchange="updateArticleStatus()" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-xs text-white focus:outline-none">
+            <option value="Drafting">In Drafting</option>
+            <option value="Review">Needs Review</option>
+            <option value="Layout">In Layout</option>
+            <option value="Ready">Ready for Print</option>
+          </select>
+        </div>
+
+        <button onclick="closeModal()" class="bg-rose-600 hover:bg-rose-500 text-white font-medium px-4 py-1.5 rounded-lg transition">
+          Done
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-1.5 pointer-events-none"></div>
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 border border-slate-700 text-white text-xs px-4 py-2.5 rounded-lg shadow-xl hidden transition-all">
+    Notification text
+  </div>
 
-  <!-- CORE JAVASCRIPT ENGINE -->
+  <!-- ============================================== -->
+  <!-- CLIENT JAVASCRIPT                              -->
+  <!-- ============================================== -->
   <script>
-    const state = {
-      activeRole: 'eic',
-      activeView: 'kanban',
-      selectedArticleId: null,
+    // Simple state
+    const articles = [
+      {
+        id: 1,
+        title: "Orientation-cum-Induction Program at Raj Soin Hall: Batch of 2026-30",
+        section: "Campus News",
+        author: "Rohan Das",
+        status: "Review",
+        body: "The academic year commenced with the grand Orientation Program held at Raj Soin Hall, welcoming over 2,800 freshers to DTU. Prof. Prateek Sharma exhorted students to innovate and explore interdisciplinary research."
+      },
+      {
+        id: 2,
+        title: "Cosmology Club DTU Excels at IAAC: Stargazing Beyond Horizons",
+        section: "Student Achievements",
+        author: "Devansh Nair",
+        status: "Review",
+        body: "Representing DTU on the international stage, the Cosmology Club secured four Gold Honours at IAAC 2026 for stellar physics research."
+      },
+      {
+        id: 3,
+        title: "Aarambh '26: Cultural Awakening with Live Campus Acts",
+        section: "Societies & Fests",
+        author: "Meera Iyer",
+        status: "Drafting",
+        body: "The Cultural Council kicked off the semester with vibrant music and dance acts at the Open Air Theatre, featuring prominent student artists."
+      },
+      {
+        id: 4,
+        title: "Distinguished Alumnus Conferred Ati Utkrisht Seva Padak",
+        section: "Alumni Spotlight",
+        author: "Rohan Das",
+        status: "Layout",
+        body: "Dr. R. K. Saxena (Batch of 1990, Electrical Engineering) was awarded the national honour for distinguished public service."
+      },
+      {
+        id: 5,
+        title: "The Stepping Stone: Cosmic Solitude and the Test of Saturn",
+        section: "Creative Columns",
+        author: "Devansh Nair",
+        status: "Layout",
+        body: "A philosophical creative narrative exploring loneliness, patience, and student growth through the metaphor of space exploration."
+      },
+      {
+        id: 6,
+        title: "Vice Chancellor's Address: 85 Years of Engineering Excellence",
+        section: "Campus News",
+        author: "Editorial Team",
+        status: "Ready",
+        body: "Hon'ble Vice Chancellor addresses the campus community on celebrating 85 years of legacy since the Kashmere Gate days."
+      }
+    ];
 
-      articles: [
-        {
-          id: 'art-1',
-          title: 'Orientation-cum-Induction Program at Raj Soin Hall: Batch of 2026-30',
-          section: 'Campus News',
-          author: 'Rohan Das',
-          authorYear: '2nd Year, COE',
-          assignedBy: 'Kavya Verma',
-          stage: 'review',
-          wordCount: 428,
-          driveFiles: ['raj_soin_hall_inauguration.raw'],
-          excerpt: 'Over 2,800 freshers welcomed at Raj Soin Hall by Hon\'ble VC Prof. Prateek Sharma and council dignitaries...',
-          text: `The academic year commenced with the grand Orientation-cum-Induction Program held at Raj Soin Hall on 27th and 28th August 2026, marking the entry of over 2,800 aspiring engineers into DTU campus.`
-        },
-        {
-          id: 'art-2',
-          title: 'Cosmology Club DTU Excels at IAAC: Stargazing Beyond Horizons',
-          section: 'Student News',
-          author: 'Devansh Nair',
-          authorYear: '3rd Year, ME',
-          assignedBy: 'Arjun Mehta',
-          stage: 'review',
-          wordCount: 512,
-          driveFiles: ['iaac_awards_certificate.pdf'],
-          excerpt: 'Cosmology Club made its mark at the International Astronomy & Astrophysics Competition with 4 gold honors...',
-          text: `Representing DTU on the global scientific stage, the Cosmology Club secured four Gold Honours at IAAC 2026.`
-        },
-        {
-          id: 'art-3',
-          title: 'Aarambh \'26: Cultural Awakening with Live Campus Acts',
-          section: 'Society Coverage',
-          author: 'Meera Iyer',
-          authorYear: '2nd Year, ECE',
-          assignedBy: 'Arjun Mehta',
-          stage: 'drafting',
-          wordCount: 310,
-          driveFiles: ['aarambh_crowd_oat.raw'],
-          excerpt: 'The cultural council kicked off the semester with vibrant music and dance acts at the Open Air Theatre...',
-          text: `Aarambh '26 electrified the OAT grounds over two days of campus celebration.`
-        },
-        {
-          id: 'art-4',
-          title: 'Dr. R. K. Saxena (Batch of 1990) Awarded Ati Utkrisht Seva Padak',
-          section: 'Alumni Spotlight',
-          author: 'Rohan Das',
-          authorYear: '2nd Year, COE',
-          assignedBy: 'Arjun Mehta',
-          stage: 'eic',
-          wordCount: 380,
-          driveFiles: ['dr_saxena_medal_ceremony.jpg'],
-          excerpt: 'Distinguished alumnus honored for outstanding national public service...',
-          text: `Dr. R. K. Saxena, B.E. in Electrical Engineering (Class of 1990), was conferred the prestigious award.`
-        },
-        {
-          id: 'art-5',
-          title: 'The Stepping Stone: Cosmic Solitude and the Test of Saturn',
-          section: 'Columns',
-          author: 'Devansh Nair',
-          authorYear: '3rd Year, ME',
-          assignedBy: 'Pooja Kapoor',
-          stage: 'layout',
-          wordCount: 650,
-          driveFiles: ['saturn_vector_illustration.ai'],
-          excerpt: 'A poetic philosophical narrative exploring planetary isolation and time dilation...',
-          text: `Neptune, Earth, the Sun — his destination beckoned without losing himself amongst the ringed void.`
-        },
-        {
-          id: 'art-6',
-          title: 'The Pulse: Unofficial Cosmic Archetype Campus Feature',
-          section: 'The Pulse',
-          author: 'Rohan Das',
-          authorYear: '2nd Year, COE',
-          assignedBy: 'Arjun Mehta',
-          stage: 'layout',
-          wordCount: 780,
-          driveFiles: ['cosmic_archetype_graphic.png'],
-          excerpt: 'Interactive campus personality quiz and cosmic character matrix...',
-          text: `Instructions: Calibrate your campus responses and tally point-values to discover your archetype.`
-        },
-        {
-          id: 'art-7',
-          title: 'Vice Chancellor\'s Message: 85 Years of Engineering Excellence',
-          section: 'VC Address',
-          author: 'Editorial Board',
-          authorYear: 'Council',
-          assignedBy: 'Arjun Mehta',
-          stage: 'print',
-          wordCount: 450,
-          driveFiles: ['vc_signed_prepress.pdf'],
-          excerpt: 'Prof. Prateek Sharma addresses students and alumni on university legacy...',
-          text: `A new academic year brings fresh energy and rhythm across the university.`
-        },
-        {
-          id: 'art-8',
-          title: 'Editors\' Note: The Universes We Built Within These Gates',
-          section: 'Editors Note',
-          author: 'Kabir Joshi & Pooja Kapoor',
-          authorYear: 'Chief Editors',
-          assignedBy: 'Arjun Mehta',
-          stage: 'print',
-          wordCount: 520,
-          driveFiles: ['eic_signatures_vector.svg'],
-          excerpt: 'Reflecting on the smallest worlds we inhabit that shape our campus lives...',
-          text: `Dear Readers, the memories we chose to hold close become the pillars of our creative pursuit.`
-        }
-      ],
+    const team = [
+      { name: "Arjun Mehta", dept: "Content", tasks: 6, status: "Active", level: "High" },
+      { name: "Rohan Das", dept: "Content", tasks: 5, status: "Active", level: "High" },
+      { name: "Ishaan Sharma", dept: "Design", tasks: 8, status: "Active", level: "High" },
+      { name: "Ananya Sen", dept: "Design", tasks: 7, status: "Active", level: "High" },
+      { name: "Devansh Nair", dept: "Content", tasks: 4, status: "Active", level: "Moderate" },
+      { name: "Tanvi Patel", dept: "Design", tasks: 3, status: "Active", level: "Moderate" },
+      { name: "Siddharth Rao", dept: "Tech", tasks: 4, status: "Active", level: "High" },
+      { name: "Meera Iyer", dept: "Content", tasks: 2, status: "In-Progress", level: "Moderate" }
+    ];
 
-      members: [
-        { name: 'Ishaan Sharma', dept: 'Design', year: '3rd Year', subs: 14, onTime: 96, quality: 4.9, turnaround: '12h', omi: 335, decision: 'Council Promotion' },
-        { name: 'Ananya Sen', dept: 'Design', year: '2nd Year', subs: 12, onTime: 98, quality: 4.9, turnaround: '14h', omi: 310, decision: 'Associate Promotion' },
-        { name: 'Siddharth Rao', dept: 'Tech', year: '4th Year', subs: 9, onTime: 100, quality: 5.0, turnaround: '8h', omi: 315, decision: 'Senior Mentor' },
-        { name: 'Devansh Nair', dept: 'Columnist', year: '3rd Year', subs: 8, onTime: 92, quality: 4.7, turnaround: '18h', omi: 280, decision: 'Associate Promotion' },
-        { name: 'Rohan Das', dept: 'Columnist', year: '2nd Year', subs: 6, onTime: 95, quality: 4.8, turnaround: '16h', omi: 245, decision: 'Associate Promotion' },
-        { name: 'Tanvi Patel', dept: 'Design', year: '1st Year', subs: 5, onTime: 88, quality: 4.4, turnaround: '24h', omi: 180, decision: 'Retain in Core' },
-        { name: 'Meera Iyer', dept: 'Columnist', year: '2nd Year', subs: 3, onTime: 67, quality: 3.8, turnaround: '42h', omi: 95, decision: 'Under Review' }
-      ]
-    };
+    let currentArticleId = null;
 
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      renderKanban();
-      renderStandardSections();
-      renderTracker();
-      renderVisualPairs();
+      renderArticles();
+      renderTeam();
     });
 
-    function switchView(viewName) {
-      state.activeView = viewName;
-      document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
-      document.querySelectorAll('.nav-item').forEach(btn => {
-        btn.classList.remove('bg-slate-800/80', 'text-white');
+    // Tab Navigation
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-rose-600', 'text-white');
         btn.classList.add('text-slate-400');
       });
 
-      const target = document.getElementById('view-' + viewName);
-      if (target) target.classList.remove('hidden');
-
-      const activeNav = document.getElementById('nav-' + viewName);
-      if (activeNav) {
-        activeNav.classList.add('bg-slate-800/80', 'text-white');
-        activeNav.classList.remove('text-slate-400');
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-rose-600', 'text-white');
+        activeBtn.classList.remove('text-slate-400');
       }
       lucide.createIcons();
     }
 
-    function onRoleChanged(role) {
-      state.activeRole = role;
-      const avatar = document.getElementById('userAvatar');
-      const sideName = document.getElementById('sidebarUserName');
-      const sideRole = document.getElementById('sidebarUserRole');
+    // Render Articles
+    function renderArticles() {
+      const filter = document.getElementById('statusFilter').value;
+      const container = document.getElementById('articlesList');
 
-      if (role === 'eic') {
-        avatar.innerText = 'AM';
-        sideName.innerText = 'Arjun Mehta';
-        sideRole.innerText = 'Council Head';
-      } else if (role === 'associate') {
-        avatar.innerText = 'KV';
-        sideName.innerText = 'Kavya Verma';
-        sideRole.innerText = 'Associate Editor';
-      } else if (role === 'columnist') {
-        avatar.innerText = 'RD';
-        sideName.innerText = 'Rohan Das';
-        sideRole.innerText = 'Columnist';
-      } else if (role === 'designer') {
-        avatar.innerText = 'IS';
-        sideName.innerText = 'Ishaan Sharma';
-        sideRole.innerText = 'Layout Designer';
-      }
-      showToast('Switched role context to ' + sideName.innerText);
-    }
+      const filtered = articles.filter(a => filter === 'all' || a.status === filter);
 
-    function renderKanban(filterVertical = 'all') {
-      const stages = ['drafting', 'review', 'eic', 'layout', 'print'];
-      stages.forEach(s => {
-        const el = document.getElementById('col-' + s);
-        if (el) el.innerHTML = '';
-      });
+      container.innerHTML = filtered.map(a => {
+        let badgeColor = 'bg-slate-800 text-slate-300';
+        if (a.status === 'Drafting') badgeColor = 'bg-slate-800 text-slate-300';
+        if (a.status === 'Review') badgeColor = 'bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        if (a.status === 'Layout') badgeColor = 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
+        if (a.status === 'Ready') badgeColor = 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
 
-      const filtered = state.articles.filter(a => {
-        if (filterVertical === 'content') return ['Campus News', 'Student News', 'Alumni Spotlight', 'Columns', 'VC Address'].includes(a.section);
-        if (filterVertical === 'visuals') return ['Visual Arts', 'The Pulse'].includes(a.section);
-        if (filterVertical === 'design') return a.stage === 'layout' || a.stage === 'print';
-        return true;
-      });
-
-      filtered.forEach(art => {
-        const card = document.createElement('div');
-        card.className = 'clean-card p-2.5 rounded-md cursor-pointer space-y-1.5';
-        card.onclick = () => openReviewModal(art.id);
-
-        card.innerHTML = `
-          <div class="flex items-center justify-between text-[10px]">
-            <span class="text-rose-400 font-medium truncate">${art.section}</span>
-            <span class="text-slate-500 font-mono">${art.wordCount}w</span>
-          </div>
-          <div class="text-xs font-medium text-slate-200 line-clamp-2 leading-snug">${art.title}</div>
-          <div class="text-[10px] text-slate-500 flex items-center justify-between pt-1 border-t border-app-border">
-            <span>${art.author}</span>
-            <span class="text-slate-500">${art.stage}</span>
+        return `
+          <div onclick="openArticleModal(${a.id})" class="bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-700 p-4 rounded-xl cursor-pointer transition space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-rose-400 font-semibold uppercase text-[10px] tracking-wide">${a.section}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${badgeColor}">${a.status}</span>
+            </div>
+            <h3 class="text-sm font-semibold text-white leading-snug line-clamp-2">${a.title}</h3>
+            <p class="text-xs text-slate-400 line-clamp-2">${a.body}</p>
+            <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-500 flex items-center justify-between">
+              <span>By ${a.author}</span>
+              <span class="text-rose-400 font-medium">Click to view &rarr;</span>
+            </div>
           </div>
         `;
-
-        const targetCol = document.getElementById('col-' + art.stage);
-        if (targetCol) targetCol.appendChild(card);
-      });
+      }).join('');
       lucide.createIcons();
     }
 
-    function filterBoard(type) {
-      document.querySelectorAll('.board-filter-btn').forEach(btn => {
-        btn.className = 'board-filter-btn px-2.5 py-1 rounded text-slate-400 hover:text-slate-200 text-xs';
-      });
-      event.target.className = 'board-filter-btn px-2.5 py-1 rounded text-white bg-slate-800 font-medium text-xs';
-      renderKanban(type);
-    }
+    // Render Team
+    function renderTeam(deptFilter = 'all') {
+      const tbody = document.getElementById('teamTableBody');
+      const filtered = team.filter(t => deptFilter === 'all' || t.dept === deptFilter);
 
-    function renderStandardSections() {
-      const container = document.getElementById('standardSectionsGrid');
-      if (!container) return;
-
-      const sections = [
-        { num: '01', title: 'VC Address & Dignitary Notes', desc: 'Opening remarks & academic vision' },
-        { num: '02', title: 'Editors-in-Chief Note', desc: 'Framing note establishing the edition tone' },
-        { num: '03', title: 'Campus & University News', desc: 'Infrastructure, orientation, administrative updates' },
-        { num: '04', title: 'Student Accolades & Tech Teams', desc: 'Competitions, hackathons, solar physics honors' },
-        { num: '05', title: 'Faculty News & Research Awards', desc: 'Citation awards, granted patents, grants' },
-        { num: '06', title: 'Alumni Spotlight', desc: 'DCE/DTU alumni in public service and startups' },
-        { num: '07', title: 'Society Coverage & Campus Life', desc: 'Aarambh \'26, cultural council events' },
-        { num: '08', title: 'Dignitary Interviews', desc: 'Transcripts with visiting mentors and artists' },
-        { num: '09', title: 'Creative Columns & Poetry', desc: 'Literary essays and campus reflections' },
-        { num: '10', title: 'The Pulse (Theme Feature)', desc: 'Edition specific archetype & feature story' }
-      ];
-
-      container.innerHTML = sections.map(s => `
-        <div class="clean-card p-3 rounded-md flex items-center justify-between text-xs">
-          <div>
-            <div class="text-[10px] font-mono text-rose-400">Section ${s.num}</div>
-            <div class="font-medium text-slate-200">${s.title}</div>
-            <div class="text-[11px] text-slate-500">${s.desc}</div>
-          </div>
-          <button onclick="switchView('kanban')" class="text-slate-400 hover:text-white text-[11px]">View</button>
-        </div>
-      `).join('');
-    }
-
-    function renderTracker(deptFilter = 'all', query = '') {
-      const tbody = document.getElementById('trackerTableBody');
-      if (!tbody) return;
-
-      const filtered = state.members.filter(m => {
-        if (deptFilter !== 'all' && m.dept !== deptFilter) return false;
-        if (query && !m.name.toLowerCase().includes(query.toLowerCase())) return false;
-        return true;
-      });
-
-      tbody.innerHTML = filtered.map(m => `
-        <tr class="hover:bg-app-bg/60 transition">
-          <td class="py-2.5 px-3">
-            <div class="font-medium text-slate-200">${m.name}</div>
-            <div class="text-[10px] text-slate-500">${m.dept} • ${m.year}</div>
+      tbody.innerHTML = filtered.map(t => `
+        <tr class="hover:bg-slate-950/40 transition">
+          <td class="py-3 px-4 font-medium text-white">${t.name}</td>
+          <td class="py-3 px-3 text-slate-400">${t.dept}</td>
+          <td class="py-3 px-3 text-center font-semibold text-white">${t.tasks}</td>
+          <td class="py-3 px-3 text-center">
+            <span class="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">${t.status}</span>
           </td>
-          <td class="py-2.5 px-2 text-center font-mono">${m.subs}</td>
-          <td class="py-2.5 px-2 text-center font-mono text-emerald-400">${m.onTime}%</td>
-          <td class="py-2.5 px-2 text-center font-mono">${m.quality}</td>
-          <td class="py-2.5 px-2 text-center font-mono text-slate-400">${m.turnaround}</td>
-          <td class="py-2.5 px-2 text-center font-mono font-medium text-rose-400">${m.omi}</td>
-          <td class="py-2.5 px-3 text-right">
-            <span class="text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">${m.decision}</span>
+          <td class="py-3 px-4 text-right">
+            <span class="text-xs text-slate-300">${t.level}</span>
           </td>
         </tr>
       `).join('');
     }
 
-    function filterTracker(dept) {
-      document.querySelectorAll('.tracker-dept-btn').forEach(btn => {
-        btn.className = 'tracker-dept-btn px-2 py-0.5 rounded text-slate-400 hover:text-white text-[11px]';
+    function filterTeam(dept) {
+      document.querySelectorAll('.team-filter-btn').forEach(btn => {
+        btn.className = 'team-filter-btn px-3 py-1 rounded text-slate-400 hover:text-white';
       });
-      event.target.className = 'tracker-dept-btn px-2 py-0.5 rounded bg-slate-800 text-white text-[11px]';
-      renderTracker(dept);
+      event.target.className = 'team-filter-btn px-3 py-1 rounded bg-slate-800 text-white font-medium';
+      renderTeam(dept);
     }
 
-    function searchTracker(val) {
-      renderTracker('all', val);
-    }
-
-    function exportAppraisalReport() {
-      showToast('Appraisal report exported to Drive.');
-    }
-
-    function renderVisualPairs() {
-      const container = document.getElementById('visualPairsGrid');
-      if (!container) return;
-
-      const pairs = [
-        { article: 'The Stepping Stone', visual: 'Saturn Concept Vector', artist: 'Ananya Sen', status: 'In Layout' },
-        { article: 'Raj Soin Hall Induction', visual: 'Orientation Photography', artist: 'Tanvi Patel', status: 'Curated' },
-        { article: 'The Pulse: Archetype Quiz', visual: 'Personality Matrix', artist: 'Ishaan Sharma', status: 'Proofing' }
-      ];
-
-      container.innerHTML = pairs.map(p => `
-        <div class="clean-card p-3 rounded-md text-xs space-y-2">
-          <div>
-            <div class="text-[10px] text-slate-500 uppercase">Manuscript</div>
-            <div class="font-medium text-slate-200">${p.article}</div>
-          </div>
-          <div>
-            <div class="text-[10px] text-slate-500 uppercase">Visual Asset</div>
-            <div class="font-medium text-rose-300">${p.visual}</div>
-            <div class="text-[10px] text-slate-500">By ${p.artist}</div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function openReviewModal(articleId) {
-      state.selectedArticleId = articleId;
-      const art = state.articles.find(a => a.id === articleId);
+    // Modal Actions
+    function openArticleModal(id) {
+      currentArticleId = id;
+      const art = articles.find(a => a.id === id);
       if (!art) return;
 
-      document.getElementById('modalSectionBadge').innerText = art.section;
-      document.getElementById('modalTitle').innerText = art.title;
-      document.getElementById('modalAuthor').innerText = `By ${art.author} (${art.authorYear}) • ${art.wordCount} words`;
-      document.getElementById('modalArticleText').innerText = art.text;
+      document.getElementById('modalArticleSection').innerText = art.section;
+      document.getElementById('modalArticleTitle').innerText = art.title;
+      document.getElementById('modalArticleAuthor').innerText = 'Submitted by ' + art.author;
+      document.getElementById('modalArticleBody').innerText = art.body;
+      document.getElementById('modalStatusSelect').value = art.status;
 
-      document.getElementById('modalDrivePills').innerHTML = art.driveFiles.map(f => `
-        <span class="bg-app-bg border border-app-border px-2 py-0.5 rounded text-slate-300 font-mono text-[10px]">${f}</span>
-      `).join('');
-
-      document.getElementById('reviewModal').classList.remove('hidden');
+      document.getElementById('viewArticleModal').classList.remove('hidden');
       lucide.createIcons();
     }
 
-    function closeReviewModal() {
-      document.getElementById('reviewModal').classList.add('hidden');
+    function closeModal() {
+      document.getElementById('viewArticleModal').classList.add('hidden');
     }
 
-    function advanceStageAction() {
-      const art = state.articles.find(a => a.id === state.selectedArticleId);
-      if (!art) return;
-
-      if (art.stage === 'drafting') art.stage = 'review';
-      else if (art.stage === 'review') art.stage = 'eic';
-      else if (art.stage === 'eic') art.stage = 'layout';
-      else if (art.stage === 'layout') art.stage = 'print';
-
-      showToast(`Moved to ${art.stage}`);
-      closeReviewModal();
-      renderKanban();
-    }
-
-    function requestRevisionAction() {
-      showToast('Revision request logged.');
-      closeReviewModal();
-    }
-
-    function updateWordCount(text) {
-      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-      document.getElementById('wordCountLabel').innerText = words;
-    }
-
-    function saveDraftAction() {
-      showToast('Draft saved.');
-    }
-
-    function submitForReviewAction() {
-      showToast('Submitted for review.');
-      switchView('kanban');
-    }
-
-    function showToast(message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'bg-slate-800 text-slate-200 border border-app-border text-xs px-3 py-1.5 rounded shadow-lg transition-all duration-200';
-      toast.innerText = message;
-      container.appendChild(toast);
-      setTimeout(() => toast.remove(), 2500);
-    }
-
-    function openNewSubmissionModal() {
-      switchView('studio');
-    }
-
-    function openNewSectionModal() {
-      const name = prompt('Custom Section Title:');
-      if (name) showToast(`Added: ${name}`);
-    }
-
-    function openNewEditionModal() {
-      document.getElementById('editionDropdown').classList.add('hidden');
-      const name = prompt('New Edition Name:', 'Edition 75 (Spring 2027)');
-      if (name) {
-        document.getElementById('currentEditionLabel').innerText = name;
-        showToast('Created ' + name);
+    function updateArticleStatus() {
+      const art = articles.find(a => a.id === currentArticleId);
+      if (art) {
+        art.status = document.getElementById('modalStatusSelect').value;
+        renderArticles();
+        showToast('Status updated to ' + art.status);
       }
     }
 
-    document.getElementById('editionSelectorBtn').onclick = (e) => {
-      e.stopPropagation();
-      document.getElementById('editionDropdown').classList.toggle('hidden');
-    };
+    // Submit Article Form
+    function handleArticleSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('inputTitle').value;
+      const section = document.getElementById('inputSection').value;
+      const author = document.getElementById('inputAuthor').value;
+      const body = document.getElementById('inputText').value;
 
-    window.onclick = () => {
-      document.getElementById('editionDropdown').classList.add('hidden');
-    };
+      articles.unshift({
+        id: Date.now(),
+        title,
+        section,
+        author,
+        status: "Drafting",
+        body: body || "Draft submitted."
+      });
+
+      e.target.reset();
+      showToast('Article submitted successfully!');
+      switchTab('articles');
+      renderArticles();
+    }
+
+    function changeRole(role) {
+      showToast(role === 'lead' ? 'Editor View Active' : 'Member View Active');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
+    }
   </script>
 </body>
 </html>

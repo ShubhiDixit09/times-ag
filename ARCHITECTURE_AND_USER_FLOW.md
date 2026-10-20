@@ -1,7 +1,7 @@
 # DTU Times Edition Portal — User Flow & Architecture Blueprint
 
-**Prepared for:** Vyom Raturi (Senior / Council Head) & DTU Times Editorial Board  
-**Author:** Shubhi Dixit  
+**Prepared for:** Arjun Mehta (Senior / Council Head) & DTU Times Editorial Board  
+**Author:** Editorial Team  
 **Date:** October 20, 2026  
 **Edition Target:** MVP rollout for December 2026 / January 2027 (Parallel run with Edition 74)
 
@@ -40,7 +40,7 @@ The portal accommodates four key stakeholder roles with tailored permissions and
 ```mermaid
 flowchart TD
     subgraph Roles ["Portal Role Personas"]
-        EIC["Editor-in-Chief / Council Head<br/>(Vyom, Shalvi, Rishabh)"]
+        EIC["Editor-in-Chief / Council Head<br/>(Arjun Mehta, Pooja, Kabir)"]
         ASSOC["Associate Editor / Vertical Head<br/>(Content, Design, Illustration, Photo)"]
         CORE["Core Contributor<br/>(Columnist, Illustrator, Photographer, Designer)"]
         ADVISOR["Faculty Advisor / Patron<br/>(Review & Archival Sign-off)"]

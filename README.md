@@ -28,7 +28,7 @@ times-ag/
 │   ├── server.js             # Lightweight zero-dependency Node.js preview server
 │   └── README.md             # Walkthrough guide for presenting to seniors
 ├── ARCHITECTURE_AND_USER_FLOW.md # Full technical specification & multi-persona user journeys
-├── extracted_meeting_notes.txt # Parsed meeting discussion with Vyom Raturi (19 Oct 2026)
+├── extracted_meeting_notes.txt # Parsed meeting discussion with Arjun Mehta (19 Oct 2026)
 ├── Meeting started 2026_10_19 22_08 IST - Notes by Gemini.pdf
 └── README.md                 # This overview file
 ```
@@ -49,7 +49,7 @@ Or simply double-click `dtu_times_portal/index.html` to open it in any modern br
 ---
 
 ## 👥 Personas Supported in Portal
-- **Editor-in-Chief / Council Head (Vyom Raturi):** Full edition oversight, milestone tracking, and print sign-off.
+- **Editor-in-Chief / Council Head (Arjun Mehta):** Full edition oversight, milestone tracking, and print sign-off.
 - **Associate Editor (Vertical Leads):** Section management, columnist assignment, inline reviews, and quality ratings.
-- **Core Contributor (Aishna Jain):** Distraction-free writing studio, live word counts, and direct asset linking.
-- **Designer & Layout Artist (Ujjwal Garg):** Access to locked manuscripts and full-res vector/photo asset bundles.
+- **Core Contributor (Rohan Das):** Distraction-free writing studio, live word counts, and direct asset linking.
+- **Designer & Layout Artist (Ishaan Sharma):** Access to locked manuscripts and full-res vector/photo asset bundles.

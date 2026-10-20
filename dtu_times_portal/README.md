@@ -1,7 +1,7 @@
 # DTU Times Edition Management & Collaboration Portal (Prototype)
 
 ## Overview
-Designed and developed for **Vyom Raturi (Council Head & Senior)** and the **DTU Times Editorial Board** by **Shubhi Dixit**.
+Designed and developed for **Arjun Mehta (Council Head & Senior)** and the **DTU Times Editorial Board** by **Editorial Team**.
 
 This prototype replaces the **20–25 fragmented WhatsApp groups** used in every publication cycle with a unified, role-based edition workspace. It automates Google Drive directory scaffolding, pre-populates standard sections, enforces a 5-stage editorial review pipeline, and records objective member activity telemetry for annual performance appraisals.
 
@@ -23,7 +23,7 @@ Simply double-click `index.html` in Windows Explorer or open it in Google Chrome
 
 ## Recommended Presentation Walkthrough for "Bhaiya"
 
-1. **Start on "Presentation Mode (For Bhaiya)"**:
+1. **Start on "Presentation Mode (Interactive Walkthrough)"**:
    - Click the top banner button or the left sidebar link: **`Inspect User Flow`**.
    - Show the **"Before vs. After"** contrast card: 25 WhatsApp groups vs. 1 unified portal.
    - Click through the **5-Step Interactive Editorial Lifecycle**:
@@ -35,10 +35,10 @@ Simply double-click `index.html` in Windows Explorer or open it in Google Chrome
 
 2. **Demonstrate Role Switching**:
    - Use the **Active Role** dropdown in the top-right header:
-     - **Vyom / EIC (Council Head):** Full oversight, edition progress, lock for design.
+     - **Arjun Mehta / EIC (Council Head):** Full oversight, edition progress, lock for design.
      - **Associate Editor (Content Lead):** Managing columnists, inline reviewing, quality scoring.
-     - **Aishna Jain (Columnist, 2nd Yr CHE):** Drafting studio, live word count, Drive asset linking.
-     - **Ujjwal Garg (Designer / Layout):** Accessing locked manuscripts and high-res vector art.
+     - **Rohan Das (Columnist, 2nd Yr CHE):** Drafting studio, live word count, Drive asset linking.
+     - **Ishaan Sharma (Designer / Layout):** Accessing locked manuscripts and high-res vector art.
 
 3. **Walk through the Editorial Pipeline (Kanban Board)**:
    - Click on `Editorial Pipeline` in the left sidebar.

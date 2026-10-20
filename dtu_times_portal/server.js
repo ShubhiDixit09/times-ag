@@ -44,6 +44,6 @@ server.listen(PORT, () => {
   console.log(`  DTU TIMES — EDITION MANAGEMENT & COLLABORATION PORTAL`);
   console.log(`======================================================`);
   console.log(`  Portal URL:  http://localhost:${PORT}`);
-  console.log(`  Target:      MVP Demonstration for Vyom Raturi & Council`);
+  console.log(`  Target:      MVP Demonstration for Arjun Mehta & Council`);
   console.log(`  Press Ctrl+C to stop the server\n`);
 });
